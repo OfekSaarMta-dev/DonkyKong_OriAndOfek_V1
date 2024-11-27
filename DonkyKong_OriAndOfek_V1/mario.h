@@ -10,30 +10,35 @@ class Map;
 
 class Mario
 {
+	// Mario's position
 	int _x;
 	int _y;
-	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
-	Map* _pMap = nullptr;
 
-	void draw(char ch)
+	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
+	Map* _pMap = nullptr; // Pointer to Map object
+
+
+	void draw(char ch)// Draw character at Mario's position
+
 	{
 		gotoxy(_x, _y);
 		cout << ch;
 	}
 
 	public:
-		Mario() : _x(GameConfig::START_X), _y(GameConfig::START_Y) {}
+		Mario() : _x(GameConfig::START_X), _y(GameConfig::START_Y) {}  // Constructor
 		
-		void draw() { draw('@'); }
-		void erase() { draw(' '); }
+		void draw() { draw('@'); }  // Draw Mario
+		void erase() { draw(' '); } // Erase Mario
 
+		// Getters for position
 		int getX() {return _x;}
 		int getY() {return _y;}
-		void keyPressed(char key);
-		void jump();
-		void climb(char key);
-		void move();
-		void setMap(Map& map) { _pMap = &map; }
+		void keyPressed(char key);  // Handle key press
+		void jump();  // Perform jump action
+		void climb(char key);  // Perform climb action
+		void move();  // Move Mario
+		void setMap(Map& map) { _pMap = &map; }  // Set Map reference
 };
 
 

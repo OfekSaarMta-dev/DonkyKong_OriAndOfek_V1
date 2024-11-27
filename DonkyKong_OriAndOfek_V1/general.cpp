@@ -1,10 +1,12 @@
 #include "general.h"
-#include <windows.h> // for gotoxy
-#include <process.h> // for system
+#include <windows.h> // For gotoxy
+#include <process.h> // For system
 #include <iostream>
 using namespace std;
 
-void gotoxy(int x, int y) {
+// Moves the console cursor to the specified (x, y) position
+void gotoxy(int x, int y) 
+{
     HANDLE hConsoleOutput;
     COORD dwCursorPosition;
     cout.flush();
@@ -14,19 +16,21 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition);
 }
 
-void clrscr() {
+// Clears the console screen
+void clrscr()
+{
     system("cls");
 }
 
-
-void ShowConsoleCursor(bool showFlag) {
+// Shows or hides the console cursor based on the showFlag parameter
+void ShowConsoleCursor(bool showFlag) 
+{
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_CURSOR_INFO     cursorInfo;
+    CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(out, &cursorInfo);
-    cursorInfo.bVisible = showFlag; // set the cursor visibility
+    cursorInfo.bVisible = showFlag; // Set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-
-
-//option to add to delete the cursor
+// Note: The functions here are used for basic console manipulation,
+// such as moving the cursor and clearing the screen.

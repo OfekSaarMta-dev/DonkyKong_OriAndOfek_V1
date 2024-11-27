@@ -7,6 +7,9 @@ class Mario;
 
 class Map
 {
+
+	// Original map layout
+
 	const char* _originalMap[GameConfig::GAME_HEIGHT] = {
 		// 01234567890123456789012345678901234567890123456789012345678901234567890123456789
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
@@ -35,16 +38,22 @@ class Map
 		  "Q==============================================================================Q", // 23
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
 	};
+
+
+	// Current map state
 	char _currentMap[GameConfig::GAME_HEIGHT][GameConfig::GAME_WIDTH + 1]; // +1 for null terminator
 
-	Mario* _mario = nullptr;
 
-	bool currentMarioLocation(int x, int y);
+	Mario* _mario = nullptr; // Pointer to Mario object
+
+
+	bool currentMarioLocation(int x, int y);     // Check if given coordinates are Mario's current location
+
 
 public:
-	void reset();
-	void print() const;
-	char getCharCurrentMap(int x, int y) const
+	void reset(); // Reset map to original state
+	void print() const;  // Print current map state
+	char getCharCurrentMap(int x, int y) const     // Get character at specified coordinates
 	{
 		return _currentMap[y][x];
 	}
@@ -52,8 +61,8 @@ public:
 	{
 		return _originalMap[y][x];
 	}
-	void setMario(Mario& mario) {_mario = &mario;}
-	void drawChar(int x, int y);
+	void setMario(Mario& mario) {_mario = &mario;} // Set Mario reference
+	void drawChar(int x, int y); // Draw character at specified coordinates
 
 };
 

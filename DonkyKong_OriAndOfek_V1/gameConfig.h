@@ -5,23 +5,30 @@
 class GameConfig
 {
 public:
-	static constexpr int GAME_WIDTH = 80;//x
-	static constexpr int GAME_HEIGHT = 25;//y
-	static constexpr int JUMP_HEIGHT = 2;
-	static constexpr int JUMP_DURATION = 50;
-	static constexpr int MOVE_DELAY = 100;
+    // Game dimensions
+    static constexpr int GAME_WIDTH = 80;  // x
+    static constexpr int GAME_HEIGHT = 25; // y
 
-	enum class utilKeys {SPACE = ' ' ,LADDER = 'H' ,FLOOR = '=', EDGE = 'Q', ESC = 27 }; // utility keys
+    // Jump parameters
+    static constexpr int JUMP_HEIGHT = 2;
+    static constexpr int JUMP_DURATION = 50;
 
-	enum class movementKeys {LEFT = 'a', RIGHT = 'd', UP = 'w', DOWN = 'x', STAY = 's' };
+    // Movement delay
+    static constexpr int MOVE_DELAY = 100;
 
-	struct Direction { int x, y; }; // inner private struct
-	static constexpr Direction directions[] = { {-1, 0}, {1, 0}, {0, -1}, {0, 1}, {0, 0} };
+    // Utility keys enum
+    enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', EDGE = 'Q', ESC = 27 };
 
-	// the directions array order is exactly the same as the keys array - must keep it that way
+    // Movement keys enum
+    enum class movementKeys { LEFT = 'a', RIGHT = 'd', UP = 'w', DOWN = 'x', STAY = 's' };
 
-	static constexpr int START_X = 1;
-	static constexpr int START_Y = 22;
+    // Direction struct for movement
+    struct Direction { int x, y; };
 
+    // Array of directions corresponding to movement keys
+    static constexpr Direction directions[] = { {-1, 0}, {1, 0}, {0, -1}, {0, 1}, {0, 0} };
 
+    // Starting position for Mario
+    static constexpr int START_X = 1;
+    static constexpr int START_Y = 22;
 };

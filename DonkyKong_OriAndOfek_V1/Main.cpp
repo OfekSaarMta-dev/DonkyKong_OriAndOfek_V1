@@ -20,6 +20,7 @@ BEFORE BARRELS, MAP SHOULD BE PERFECT (>,<,)
 * remove cursor
 * 
 * prevent jumps from deleting ladder
+* prevent jumps from deleting walls when jumping 2 chars before the wall
 * jumps should land on a higher floor
 * keep moving (x direction) after free fall
 * add life (3)
