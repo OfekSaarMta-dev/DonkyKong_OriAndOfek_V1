@@ -8,8 +8,8 @@ public:
 	static constexpr int GAME_WIDTH = 80;//x
 	static constexpr int GAME_HEIGHT = 25;//y
 	static constexpr int JUMP_HEIGHT = 2;
-	static constexpr int JUMP_DURATION = 100;
-	static constexpr int MOVE_DELAY = 80;
+	static constexpr int JUMP_DURATION = 50;
+	static constexpr int MOVE_DELAY = 50;
 
 	enum class utilKeys {LADDER = 'H' ,FLOOR = '=', EDGE = 'Q', ESC = 27 }; // utility keys
 
