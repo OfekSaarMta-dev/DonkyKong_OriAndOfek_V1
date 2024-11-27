@@ -15,30 +15,25 @@ class Mario
 	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
 	Map* _pMap = nullptr;
 
-
 	void draw(char ch)
 	{
 		gotoxy(_x, _y);
 		cout << ch;
 	}
 
-
 	public:
-		Mario()
-		{
-			_x = GameConfig::START_X; _y = GameConfig::START_Y;
-		}
+		Mario() : _x(GameConfig::START_X), _y(GameConfig::START_Y) {}
+		
 		void draw() { draw('@'); }
 		void erase() { draw(' '); }
 
-
-
+		int getX() {return _x;}
+		int getY() {return _y;}
 		void keyPressed(char key);
 		void jump();
+		void climb(char key);
 		void move();
-		void setMap(Map& map) {
-			_pMap = &map;
-		}
+		void setMap(Map& map) { _pMap = &map; }
 };
 
 

@@ -50,6 +50,7 @@ void Menu::run()
 	map.print();
     Mario mario;
 	mario.setMap(map);
+    map.setMario(mario);
 
     while (true)
     {
@@ -63,6 +64,7 @@ void Menu::run()
         }
 		Sleep(GameConfig::MOVE_DELAY);
         mario.erase();
+        map.drawChar(mario.getX(), mario.getY());
 		//Sleep(GameConfig::MOVE_DELAY);
 		mario.move();
     }
