@@ -56,27 +56,55 @@ void Menu::run()
     mario.setMap(map);   // Link Mario to map for interaction
 
     map.setMario(mario);   // Link map to Mario for interaction
+	bool isRunning = true;
+	bool isPaused = false;
 
-    while (true)
+    while (isRunning)
     {
-        mario.draw();   // Draw Mario at current position
+        if (_kbhit())
+        { // Check if a key has been pressed
+            char keyPressed = _getch(); // Get pressed key
 
-        if (_kbhit())   // Check if a key has been pressed without blocking execution
-        {
-            char keyPressed = _getch();   // Get pressed key
+            if (keyPressed == (char)GameConfig::utilKeys::ESC) // pressing ESC
+            {
+                if (!isPaused)
+                {
+                    // Pause
+                    isPaused = true;
+                    system("CLS"); // Clear the screen for pause message
+                    cout << "Game Paused. Press ESC to resume..." << endl;
+                    cout << "Enjoy so Far????"<< endl;
+                    // while (_getch() != (char)GameConfig::utilKeys::ESC) //       to decide if good or bad
+                }
+                else
+                {
+                    // Unpause
+                    isPaused = false;
+                    system("CLS"); // Clear the screen when resuming
+                    map.print();   // Redraw the map
+                    mario.draw();  // Redraw Mario where he left off
+                }
+                continue;
+            }
 
-            if (keyPressed == (char)GameConfig::utilKeys::ESC)
-                break;   // Exit game loop on ESC key press
-
-            mario.keyPressed(keyPressed);   // Handle key press event for Mario's actions
+            if (!isPaused) // the game is running 
+            {
+                mario.keyPressed(keyPressed);
+            }
         }
 
-        Sleep(GameConfig::MOVE_DELAY);   // Delay to control game speed
-
-        mario.erase();   // Erase previous Mario position before updating
-
-        map.drawChar(mario.getX(), mario.getY());   // Redraw character at updated position
-
-        mario.move();   // Update Mario's position based on current direction and interactions with map elements.
+        if (!isPaused) // running 
+        {
+            mario.draw();               
+            Sleep(GameConfig::MOVE_DELAY); 
+            mario.erase();              
+            mario.move();          
+        }
+       else 
+       {
+           Sleep(100); 
+       }
     }
+
+
 }

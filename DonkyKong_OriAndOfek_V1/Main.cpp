@@ -18,11 +18,11 @@ BEFORE BARRELS, MAP SHOULD BE PERFECT (>,<,)
 * change menu to game
 * change show to menu
 * remove cursor
+* To do Point object instead of working with x ,y 
 * 
-* prevent jumps from deleting ladder
-* prevent jumps from deleting walls when jumping 2 chars before the wall
-* jumps should land on a higher floor
-* keep moving (x direction) after free fall
-* add life (3)
 * while falling after 5 chars the game will restart to original map and mirio will start from the begining and score will reduse by 1
+* mario movement should be nicer
+* mario should be able to climb ladder without staying on the floor
+* after falling to fall only in dir_y
+* when pressing ESC the game should freez and when pressing ESC again the game should continue
 */

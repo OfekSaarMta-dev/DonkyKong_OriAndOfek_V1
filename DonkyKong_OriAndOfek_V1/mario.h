@@ -3,37 +3,39 @@
 #include "general.h"
 #include "map.h"
 #include <iostream>
+#include"point.h"
 
 using namespace std;
 
 class Map;
+class Point; 
 
 class Mario
 {
 	// Mario's position
-	int _x;
-	int _y;
+	
+	Point _position; // Barrel's position
+
 
 	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
 	Map* _pMap = nullptr; // Pointer to Map object
 
 
 	void draw(char ch)// Draw character at Mario's position
-
 	{
-		gotoxy(_x, _y);
+		gotoxy(_position._x, _position._y);
 		cout << ch;
 	}
 
 	public:
-		Mario() : _x(GameConfig::START_X), _y(GameConfig::START_Y) {}  // Constructor
+		Mario() : _position(GameConfig::START_X,GameConfig::START_Y){}  // Constructor
 		
 		void draw() { draw('@'); }  // Draw Mario
-		void erase() { draw(' '); } // Erase Mario
+		void erase(); // Erase Mario
 
 		// Getters for position
-		int getX() {return _x;}
-		int getY() {return _y;}
+		int getX() {return _position._x;}
+		int getY() {return _position._y;}
 		void keyPressed(char key);  // Handle key press
 		void jump();  // Perform jump action
 		void climb(char key);  // Perform climb action

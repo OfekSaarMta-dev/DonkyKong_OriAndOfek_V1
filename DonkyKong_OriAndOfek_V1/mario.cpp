@@ -4,7 +4,7 @@
 // Handles key presses to control Mario's actions
 void Mario::keyPressed(char key)
 {
-    if (_pMap->getCharOriginalMap(_x, _y + 1) == (char)GameConfig::utilKeys::LADDER) 
+    if (_pMap->getCharOriginalMap(_position._x, _position._y + 1) == (char)GameConfig::utilKeys::LADDER)
     { // Mario on ladder
         switch (std::tolower(key)) 
         { // Options to climb up/down
@@ -34,19 +34,20 @@ void Mario::keyPressed(char key)
             _dir = GameConfig::directions[1];
             break;
 
-        case (char)GameConfig::movementKeys::UP: // Jump or climb test
-            if (_pMap->getCharOriginalMap(_x, _y) != (char)GameConfig::utilKeys::LADDER) 
+        case (char)GameConfig::movementKeys::UP: // Jump or climb check
+            if (_pMap->getCharOriginalMap(_position._x, _position._y) != (char)GameConfig::utilKeys::LADDER && 
+                _pMap->isFloor(_position._x, _position._y + 1)) // do a function isOnLadder
             {
                 jump();
             }
-            else if (_pMap->getCharOriginalMap(_x, _y) == (char)GameConfig::utilKeys::LADDER) 
+            else if (_pMap->getCharOriginalMap(_position._x, _position._y) == (char)GameConfig::utilKeys::LADDER)
             {
                 climb(key);
             }
             break;
 
         case (char)GameConfig::movementKeys::DOWN:
-            if (_pMap->getCharOriginalMap(_x, _y + 2) == (char)GameConfig::utilKeys::LADDER) 
+            if (_pMap->getCharOriginalMap(_position._x, _position._y + 2) == (char)GameConfig::utilKeys::LADDER)
             {
                 climb(key);
             }
@@ -63,36 +64,35 @@ void Mario::keyPressed(char key)
 }
 
 // Handles Mario's jumping action with a simple upward and downward motion
-void Mario::jump() 
+void Mario::jump()
 {
-    if (_pMap->getCharOriginalMap(_x - 1, _y) != (char)GameConfig::utilKeys::EDGE &&
-        _pMap->getCharOriginalMap(_x + 1, _y) != (char)GameConfig::utilKeys::EDGE)
+    // Going up
+    this->erase();
+    _dir.y = -1;
+
+    for (int i = 1; i <= GameConfig::JUMP_HEIGHT; i++)
     {
-        // Going up
-        _dir.y = -1;
-        this->erase();
-        _x += _dir.x;
-        for (int i = 1; i <= GameConfig::JUMP_HEIGHT; i++)
+        int newX = _position._x + _dir.x;
+        int newY = _position._y + _dir.y;
+
+        if(_pMap->getCharOriginalMap(newX, newY) == (char)GameConfig::utilKeys::EDGE || // do as a function 
+           _pMap->isFloor(newX, newY))
         {
-            _y += _dir.y;
-            this->draw();
-            Sleep(GameConfig::JUMP_DURATION);
-            this->erase();
+           break;
         }
-
-        // Falling down
-        _dir.y = 1;
-        _y += _dir.y;
+        else
+        {
+        _position._x = newX;
+        _position._y = newY;
         this->draw();
-        Sleep(GameConfig::JUMP_DURATION);
+        Sleep(GameConfig::JUMP_DURATION); 
         this->erase();
-        _y += _dir.y;
-        _x += _dir.x;
-        this->draw();
-
-        _dir.y = 0; // Reset vertical direction after jump
+        }
     }
 }
+
+
+
 
 // Handles climbing up or down ladders based on key input
 void Mario::climb(char key) 
@@ -103,39 +103,52 @@ void Mario::climb(char key)
     }
     else //(key == (char)GameConfig::movementKeys::DOWN)
     {
-        if (_pMap->getCharOriginalMap(_x, _y + 2) == (char)GameConfig::utilKeys::LADDER)
+        if (_pMap->getCharOriginalMap(_position._x, _position._y + 2) == (char)GameConfig::utilKeys::LADDER)
         {
             this->erase();
-            _y += 2; // Move down two steps on ladder
+            _position._y += 2; // Move down two steps on ladder
         }
         _dir.y = 1; // Climb down
     }
 }
 
+
+
+
 // Moves Mario based on current direction and checks for collisions with edges or floors
 void Mario::move() 
 {
-
-    if (_pMap->getCharOriginalMap(_x, _y + 1) == (char)GameConfig::utilKeys::SPACE)
+    // Check if Mario is on the floor using the new isOnFloor method
+	if (!_pMap->isFloor(_position._x, _position._y + 1) && // If there's no floor below Mario
+		_pMap->getCharOriginalMap(_position._x, _position._y + 1) == (char)GameConfig::utilKeys::SPACE) //he is not on ladder which means there is space below him
     {
-        _dir.y = 1; // Free fall if there's space below Mario
+        _dir.x = 0;
+        _dir.y = 1; // Free fall if there's no floor below Mario
     }
-    int newX = _x + _dir.x;
-    int newY = _y + _dir.y;
 
-    if (_pMap->getCharCurrentMap(newX, newY) == (char)GameConfig::utilKeys::EDGE ||
-        _pMap->getCharCurrentMap(newX, newY) == (char)GameConfig::utilKeys::FLOOR)
-    {
-        if (_dir.y == -1)
-        {
-            _y += -2; // Adjust position when hitting an edge while moving up
-        }
+    const int newX = _position._x + _dir.x;
+    const int newY = _position._y + _dir.y;
 
-        _dir = { 0, 0 }; // Stop movement upon collision with edge or floor
-    }
-    else
+    if (_pMap->getCharOriginalMap(newX, newY) == (char)GameConfig::utilKeys::EDGE ||
+        _pMap->isFloor(newX, newY)) // Upon collision with edge
     {
-        _x = newX; // Update position if no collision occurs
-        _y = newY;
+        if (_pMap->getCharOriginalMap(_position._x, _position._y) == (char)GameConfig::utilKeys::LADDER && 
+            _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
+            {
+            _position._y += -2; // Move Mario avove the floor
+            }
+        _dir = { 0, 0 }; // Stop movement
     }
+    else // Update position if no collision occurs
+    {
+        _position._x = newX; 
+        _position._y = newY;
+    }
+}
+
+void Mario::erase()
+{
+    char originalChar = _pMap->getCharOriginalMap(_position._x, _position._y);
+    gotoxy(_position._x, _position._y);
+    cout << originalChar; // Restore original character instead of erasing it with space.
 }
