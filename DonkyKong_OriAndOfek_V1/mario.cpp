@@ -1,6 +1,12 @@
 #include "mario.h"
 #include "gameConfig.h"
 
+void Mario::draw(char ch)// Draw character at Mario's position
+{
+    gotoxy(_position._x, _position._y);
+    cout << ch;
+}
+
 // Handles key presses to control Mario's actions
 void Mario::keyPressed(char key)
 {
@@ -118,7 +124,7 @@ void Mario::climb(char key)
 // Moves Mario based on current direction and checks for collisions with edges or floors
 void Mario::move() 
 {
-    // Check if Mario is on the floor using the new isOnFloor method
+    // Check if Mario is on the floor using the isFloor method
 	if (!_pMap->isFloor(_position._x, _position._y + 1) && // If there's no floor below Mario
 		_pMap->getCharOriginalMap(_position._x, _position._y + 1) == (char)GameConfig::utilKeys::SPACE) //he is not on ladder which means there is space below him
     {

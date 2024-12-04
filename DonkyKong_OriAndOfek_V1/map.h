@@ -1,12 +1,11 @@
 #pragma once
 
 #include "gameConfig.h"
-#include "mario.h"
 
-class Mario;
 
 class Map
 {
+private:
 
 	// Original map layout
 
@@ -21,20 +20,20 @@ class Map
 		  "Q                                              <<<<=============               Q", // 6
 		  "Q                                                         H                    Q", // 7
 		  "Q                                                         H                    Q", // 8
-		  "Q           ====================================================               Q", // 9
+		  "Q           ===============================<<<<<<===============               Q", // 9
 		  "Q            H                                                                 Q", // 10
 		  "Q            H                                                                 Q", // 11
 		  "Q            H                                                                 Q", // 12
-		  "Q        >>>==================                ========================         Q", // 13
-		  "Q                              ====                    H                       Q", // 14
-		  "Q                             ==================       H                       Q", // 15
+		  "Q    ====>>>==================                ========================         Q", // 13
+		  "Q                             >>>>==                   H                       Q", // 14
+		  "Q                             =====>>>>==========      H                       Q", // 15
 		  "Q                                                      H                       Q", // 16
 		  "Q                                                      H                       Q", // 17
 		  "Q                                                      H                       Q", // 18
-		  "Q               =================== =======================<<<<                Q", // 19
+		  "Q               =================== =============<<<<==========                Q", // 19
 		  "Q                         H                                                    Q", // 20
 		  "Q                         H                                                    Q", // 21
-		  "Q                         H                                   =                Q", // 22
+		  "Q                         H                                   #                Q", // 22
 		  "Q=================================>>>>=========================================Q", // 23
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
 	};
@@ -44,30 +43,16 @@ class Map
 	char _currentMap[GameConfig::GAME_HEIGHT][GameConfig::GAME_WIDTH + 1]; // +1 for null terminator
 
 
-	Mario* _mario = nullptr; // Pointer to Mario object
-
-
-	bool currentMarioLocation(const int x, const int y) const;     // Check if given coordinates are Mario's current location
 
 	
 public:
 	void reset(); // Reset map to original state
 	void print() const;  // Print current map state
-	char getCharCurrentMap(int x, int y) const     // Get character at specified coordinates
-	{
-		return _currentMap[y][x];
-	}
-	char getCharOriginalMap(int x, int y) const
-	{
-		return _originalMap[y][x];
-	}
-	void setMario(Mario& mario) {_mario = &mario;} // Set Mario reference
-	//void drawChar(int x, int y); // Draw character at specified coordinates
-
-	bool isFloor(int x, int y) const
-	{
-		return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::FLOOR;
-	}
-
+	char getCharCurrentMap(int x, int y) const;
+	char getCharOriginalMap(int x, int y) const;
+	bool isFloor(const int x, const int y) const;
+	bool isRfloor(const int x, const int y) const;
+	bool isLfloor(const int x, const int y) const;
+	bool isEndOfRoad(const int x, const int y) const;
 };
 

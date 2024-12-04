@@ -1,28 +1,28 @@
 #pragma once
-
-#include <iostream>
-#include "menu.h"
+#include "game.h"
 
 
 int main()
 {
-    Menu menu;
-    menu.show();
+    Game game;
+    game.menu();
 }
 
 
 /*
 
 BEFORE BARRELS, MAP SHOULD BE PERFECT (>,<,)
-
+* !!!!!!!!!!!!! change _x and _y point !!!! to private!!!!!!!
 * change menu to game
 * change show to menu
 * remove cursor
-* To do Point object instead of working with x ,y 
-* 
+* be able to jump on ledder while moving 
 * while falling after 5 chars the game will restart to original map and mirio will start from the begining and score will reduse by 1
-* mario movement should be nicer
+* mario movement should be smoother
 * mario should be able to climb ladder without staying on the floor
-* after falling to fall only in dir_y
-* when pressing ESC the game should freez and when pressing ESC again the game should continue
-*/
+* barrels functions (draw, erase, move)
+* Barrel functions should reference the map array ?
+* move after falling down from jump
+* lifes for mario
+
+**/ 

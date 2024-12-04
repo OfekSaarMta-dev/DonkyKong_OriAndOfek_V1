@@ -2,8 +2,10 @@
 
 class Point 
 {
+
+
 public:
-    int _x, _y;
+    int _x, _y; //////////////!!!!!!!!!!///////////// why this is public!!!!!!!!!!!!!!!!!
 
     Point(int x, int y) : _x(x), _y(y) {}
     
@@ -32,10 +34,7 @@ public:
     {
         _x += other._x; _y += other._y; return *this; 
     }
-    bool operator==(const Point& other) const 
-    { 
-        return _x == other._x && _y == other._y; 
-    }
+    
 
     Point& operator=(const Point& other) {
         if (this != &other) {
