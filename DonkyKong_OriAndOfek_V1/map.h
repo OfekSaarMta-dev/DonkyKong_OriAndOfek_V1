@@ -54,6 +54,5 @@ public:
 	bool isFloor(const int x, const int y) const;
 	bool isRfloor(const int x, const int y) const;
 	bool isLfloor(const int x, const int y) const;
-	bool isEndOfRoad(const int x, const int y) const;
 };
 

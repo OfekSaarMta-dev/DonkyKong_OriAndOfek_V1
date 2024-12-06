@@ -2,10 +2,10 @@
 
 class Point 
 {
+    int _x, _y;
 
 
 public:
-    int _x, _y; //////////////!!!!!!!!!!///////////// why this is public!!!!!!!!!!!!!!!!!
 
     Point(int x, int y) : _x(x), _y(y) {}
     

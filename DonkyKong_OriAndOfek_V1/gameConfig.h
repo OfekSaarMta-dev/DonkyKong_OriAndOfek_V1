@@ -18,7 +18,7 @@ public:
     static constexpr int MOVE_DELAY = 75;
 
     // Utility keys enum
-    enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', LFLOOR = '<', RFLOOR = '>',END_OF_ROAD = '#', EDGE = 'Q', ESC = 27 };
+    enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', LFLOOR = '<', RFLOOR = '>',BARREL = 'O', EDGE = 'Q', ESC = 27 };
 
     // Movement keys enum
     enum class movementKeys { LEFT = 'a', RIGHT = 'd', UP = 'w', DOWN = 'x', STAY = 's' };

@@ -27,8 +27,8 @@ public:
 	void erase(); // Erase Mario
 
 	// Getters for position
-	int getX() {return _position._x;}
-	int getY() {return _position._y;}
+	int getX() {return _position.getX();}
+	int getY() {return _position.getY();}
 
 	void keyPressed(char key);  // Handle key press
 	void jump();  // Perform jump action

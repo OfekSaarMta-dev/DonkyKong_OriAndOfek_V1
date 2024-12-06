@@ -50,8 +50,3 @@ bool Map::isLfloor(const int x, const int y) const
 {
     return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR;
 }
-
-bool Map::isEndOfRoad(const int x, const int y) const
-{
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::END_OF_ROAD; 
-}

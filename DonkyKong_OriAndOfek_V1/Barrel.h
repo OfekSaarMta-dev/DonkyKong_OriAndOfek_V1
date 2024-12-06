@@ -9,10 +9,10 @@
 class Barrel 
 {
 private:
-
 	Point _position;
 	Map* _pMap = nullptr; 
 	GameConfig::Direction _dir{ 0, 1 }; // starting dir.x and dir.y // free falling 
+	int _count_falling = 0;
 
 	void draw(char ch);// Draw character at Barrel's position
 	
@@ -33,9 +33,10 @@ public:
 	{
 		_position.setXY(x, y); // Update the barrel's position
 	}
-	void explostion() 
+	void explosion() 
 	{
-		 //this is bad maybe we need another point _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+		_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+		_count_falling = 0;
 	}
 	
 	
