@@ -12,10 +12,10 @@ public:
 
     // Jump parameters
     static constexpr int JUMP_HEIGHT = 2;
-    static constexpr int JUMP_DURATION = 50;
+    static constexpr int JUMP_DURATION = 100;
 
     // Movement delay
-    static constexpr int MOVE_DELAY = 100;
+    static constexpr int MOVE_DELAY = 75;
 
     // Utility keys enum
     enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', LFLOOR = '<', RFLOOR = '>',END_OF_ROAD = '#', EDGE = 'Q', ESC = 27 };
@@ -39,10 +39,11 @@ public:
 	static constexpr int NUM_OF_CHARS_FOR_MArio_DIE = 5;
 
     // barrels parameters
-    static constexpr int MAX_BARRELS = 5;
+    static constexpr int MAX_BARRELS = 10;
 	static constexpr int NUM_OF_CHARS_FOR_BARREL_EXPLODE = 8;
     static constexpr int START_x_BARREL = 49 ;
     static constexpr int START_Y_BARREL = 4;
+
 
 
 };

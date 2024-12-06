@@ -19,10 +19,10 @@ BEFORE BARRELS, MAP SHOULD BE PERFECT (>,<,)
 * be able to jump on ledder while moving 
 * while falling after 5 chars the game will restart to original map and mirio will start from the begining and score will reduse by 1
 * mario movement should be smoother
-* mario should be able to climb ladder without staying on the floor
-* barrels functions (draw, erase, move)
-* Barrel functions should reference the map array ?
 * move after falling down from jump
-* lifes for mario
+* change point to private
+* add block for copy ctor 
+* to creat barrels from other way of dkong
+* 
 
 **/ 

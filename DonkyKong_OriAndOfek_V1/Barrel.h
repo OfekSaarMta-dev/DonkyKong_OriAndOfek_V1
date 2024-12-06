@@ -12,7 +12,7 @@ private:
 
 	Point _position;
 	Map* _pMap = nullptr; 
-	GameConfig::Direction _dir{ 0, 1 }; // starting dir.x and dir.y
+	GameConfig::Direction _dir{ 0, 1 }; // starting dir.x and dir.y // free falling 
 
 	void draw(char ch);// Draw character at Barrel's position
 	
@@ -29,6 +29,15 @@ public:
 	void move();  // Move Barrel
 	void setMap(Map& map) { _pMap = &map; } // Set Map reference
 
+	void setXY(int x, int y) 
+	{
+		_position.setXY(x, y); // Update the barrel's position
+	}
+	void explostion() 
+	{
+		 //this is bad maybe we need another point _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+	}
+	
 	
 
 

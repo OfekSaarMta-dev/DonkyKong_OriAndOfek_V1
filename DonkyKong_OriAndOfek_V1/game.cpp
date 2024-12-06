@@ -46,7 +46,6 @@ void Game::menu()
     }
 }
 
-// Runs the main game loop where Mario interacts with the map.
 void Game::run()
 {
     Map map;
@@ -54,70 +53,97 @@ void Game::run()
     map.print();   // Print map to console
 
     Mario mario;
-    Barrel barrel;
+    Barrel barrels[GameConfig::MAX_BARRELS];
 
     mario.setMap(map);   // Link Mario to map for interaction
-    barrel.setMap(map);   // Link Barrel to map for interaction
+    for (int i = 0; i < GameConfig::MAX_BARRELS; i++)
+    {
+        barrels[i] = Barrel();    // Create a barrel and assign it to the array
+        barrels[i].setMap(map);   // Set the map for each barrel
+    }
 
+    bool isRunning = true;
+    bool isPaused = false;
 
-	bool isRunning = true;
-	bool isPaused = false;
+    int activeBarrels = 0;       // Tracks number of active barrels
+    int gameLoopCounter = 0;     // Counter to control barrel activation
 
     while (isRunning)
     {
         if (_kbhit())
-        { // Check if a key has been pressed
+        {
             char keyPressed = _getch(); // Get pressed key
 
             if (keyPressed == (char)GameConfig::utilKeys::ESC) // pressing ESC
             {
                 if (!isPaused)
                 {
-                    // Pause
                     isPaused = true;
                     system("CLS"); // Clear the screen for pause message
                     cout << "Game Paused. Press ESC to resume..." << endl;
-                    cout << "Enjoy so Far????"<< endl;
-                    // while (_getch() != (char)GameConfig::utilKeys::ESC) //       to decide if good or bad
+                    cout << "Enjoy so Far????" << endl;
                 }
                 else
                 {
-                    // Unpause
                     isPaused = false;
                     system("CLS"); // Clear the screen when resuming
                     map.print();   // Redraw the map
-                    mario.draw();  // Redraw Mario where he left off
-                    barrel.draw(); // Redraw barrel where he left off
+                    mario.draw();  // Redraw Mario
+                    for (int i = 0; i < activeBarrels; i++)
+                    {
+                        barrels[i].draw();
+                    }
                 }
                 continue;
             }
 
-            if (!isPaused) // the game is running 
+            if (!isPaused)// running 
             {
                 mario.keyPressed(keyPressed);
             }
         }
 
-        if (!isPaused) // running 
+        if (!isPaused) // the game is running
         {
-            mario.draw(); 
-            barrel.draw();
+            mario.draw();
 
-            Sleep(GameConfig::MOVE_DELAY); 
+            // Draw active barrels
+            for (int i = 0; i < activeBarrels; i++)
+            {
+                barrels[i].draw();
+            }
+
+            Sleep(GameConfig::MOVE_DELAY);
 
             mario.erase();
-            barrel.erase();
+            for (int i = 0; i < activeBarrels; i++)
+            {
+                barrels[i].erase();
+            }
 
-            mario.move(); 
-            barrel.move();
+            mario.move();
+            for (int i = 0; i < activeBarrels; i++)
+            {
+                barrels[i].move();
+            }
+
+            gameLoopCounter++;
+
+            // Activate a new barrel every 8 loops, up to MAX_BARRELS
+            if (gameLoopCounter >= 8) /// change to game config
+            {
+                if (activeBarrels < GameConfig::MAX_BARRELS)
+                {
+                    activeBarrels++;
+                }
+                gameLoopCounter = 0; // Reset the counter
+            }
         }
-       else 
-       {
-            Sleep(100); 
-       }
+        else
+        {
+            Sleep(100);
+        }
     }
-
-
 }
 
 void Game::showInstructions()

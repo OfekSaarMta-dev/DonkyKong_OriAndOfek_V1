@@ -31,6 +31,7 @@ void Barrel::move()
 
     if (_pMap->isFloor(newX, newY)) // Upon collision with floor
     {
+      
         if(_pMap->isEndOfRoad(newX, newY))
         {
             _dir = {0, 0};
@@ -42,7 +43,12 @@ void Barrel::move()
             _dir = GameConfig::directions[0]; // going left
 
         if(_pMap->isRfloor(newX, newY))
-            _dir = GameConfig::directions[1]; // going right
+        _dir = GameConfig::directions[1]; // going right
+
+        //if(to add count of spaces in free falling maybe to give a referece to count in run)
+        //{
+        //   explostion !!!!! 
+        //}
     }
     else // Update position if no collision occurs
     {
