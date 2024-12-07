@@ -13,6 +13,7 @@ void Map::reset()
     {
         memcpy(_currentMap[i], _originalMap[i], GameConfig::GAME_WIDTH + 1);
     }
+	//reset barrel position.......
 }
 
 // Prints the current state of the map to the console

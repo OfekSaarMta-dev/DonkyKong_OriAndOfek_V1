@@ -9,7 +9,7 @@
 class Barrel 
 {
 private:
-	Point _position;
+	Point _position; // Barrel's position
 	Map* _pMap = nullptr; 
 	GameConfig::Direction _dir{ 0, 1 }; // starting dir.x and dir.y // free falling 
 	int _count_falling = 0;
@@ -38,9 +38,11 @@ public:
 		_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
 		_count_falling = 0;
 	}
-	
-	
 
+	void reset()
+	{
+		_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+	}
 
 
 

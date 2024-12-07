@@ -119,7 +119,12 @@ void Mario::climb(char key)
 // Moves Mario based on current direction and checks for collisions with edges or floors
 void Mario::move()
 {
-    // Check if Mario is on the floor using the isFloor method
+    /*if ('position mario == position barrel' || position mario == erea of the explosion)
+    {
+		die();
+	}*/
+
+    // Check if Mario is on the floor 
     if (!_pMap->isFloor(_position.getX(), _position.getY() + 1) && // If there's no floor below Mario
         _pMap->getCharOriginalMap(_position.getX(), _position.getY() + 1) == (char)GameConfig::utilKeys::SPACE) //he is not on ladder which means there is space below him
     {
@@ -134,7 +139,20 @@ void Mario::move()
                 _jumpCounter++;   
         }
         else // not in the middle of a jump
+        {
             _dir.y = 1; // Free fall if there's no floor below Mario
+        }
+		_count_falling++; // Count falling steps
+    }
+    else
+    {
+        // Mario lands on the floor
+        if (_count_falling >= 5 && _pMap->getCharOriginalMap(_position.getX(), _position.getY() + 1) == (char)GameConfig::utilKeys::FLOOR)
+        {
+            die(); // Trigger Mario's death
+        }
+
+        _count_falling = 0; // Reset falling count when hitting the floor if he is not dead;
     }
 
     const int newX = _position.getX() + _dir.x;
@@ -174,8 +192,22 @@ void Mario::die()
 	_dir = { 0, 0 }; // Stop movement
 	_jumpCounter = 0; // Reset jump counter
 	_pMap->reset(); // Reset map
+
+    system("cls"); // Clear console screen
+    
 	_pMap->print(); // Print map
-	//draw(); // Draw Mario at the starting position
+
+
+	/*if (_life > 0)
+	{
+		decreaseLife(); // Decrease life count
+	}
+	else
+	{
+		//cout << "Game Over!" << endl;
+		
+
+	}*/
 }
 
 void Mario::erase()

@@ -42,5 +42,5 @@ public:
 	void climb(char key);  // Perform climb action
 	void move();  // Move Mario
 	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
-	void die();  // Mario dies
+	void die();  // Mario die
 };
