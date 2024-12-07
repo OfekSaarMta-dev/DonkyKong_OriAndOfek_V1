@@ -3,7 +3,6 @@
 #include "general.h"
 #include "gameConfig.h"
 #include "map.h"
-#include <iostream>
 
 
 class Barrel 
@@ -21,29 +20,12 @@ public:
 
 	Barrel() : _position(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL) {} // Constructor
 
-	void draw()
-	{
-		draw('O'); // Draw Barrel
-	} 
+	void draw() { draw('O'); } // Draw Barrel
 	void erase(); // Erase Barrel
 	void move();  // Move Barrel
 	void setMap(Map& map) { _pMap = &map; } // Set Map reference
-
-	void setXY(int x, int y) 
-	{
-		_position.setXY(x, y); // Update the barrel's position
-	}
-	void explosion() 
-	{
-		_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
-		_count_falling = 0;
-	}
-
-	void reset()
-	{
-		_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
-	}
-
+	void explosion();
+	
 
 
 };

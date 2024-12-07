@@ -1,14 +1,10 @@
 #pragma once
 
 #include "game.h"
-#include "gameConfig.h"
-#include "map.h"
 #include "mario.h"
 #include "Barrel.h"
 
-#include <iostream>
 #include <conio.h> // For kbhit and getch functions
-#include <Windows.h>
 
 using namespace std;
 

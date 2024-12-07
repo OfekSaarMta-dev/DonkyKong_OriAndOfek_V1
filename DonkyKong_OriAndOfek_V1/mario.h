@@ -1,8 +1,6 @@
 #pragma once
-#include "gameConfig.h"
 #include "general.h"
 #include "map.h"
-#include <iostream>
 #include"point.h"
 
 using namespace std;
@@ -34,7 +32,7 @@ public:
 	// Getters for position and life
 	int getX() {return _position.getX();}
 	int getY() {return _position.getY();}
-	int getLife() { return _life; }
+	int getLife() const { return _life; }
 
 
 	void keyPressed(char key);  // Handle key press

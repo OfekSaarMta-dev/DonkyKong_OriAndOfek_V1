@@ -1,8 +1,4 @@
 #include "map.h"
-#include "general.h"
-#include <Windows.h>
-#include <cstring>
-#include <iostream>
 using namespace std;
 
 

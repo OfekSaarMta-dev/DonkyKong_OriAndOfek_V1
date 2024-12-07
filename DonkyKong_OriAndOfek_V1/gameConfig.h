@@ -27,7 +27,7 @@ public:
     // Starting position for Mario
     static constexpr int START_X_MARIO = 78;
     static constexpr int START_Y_MARIO = 22;
-	static constexpr int NUM_OF_CHARS_FOR_MArio_DIE = 5;
+	static constexpr int NUM_OF_CHARS_FOR_MARIO_DIE = 5;
 
     // barrels parameters
     static constexpr int MAX_BARRELS = 5;

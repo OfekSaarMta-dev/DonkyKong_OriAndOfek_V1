@@ -33,4 +33,6 @@ int main()
 * when mario touch dollar, wins the game and write a congratulations message, add option to restart game
 * when life  = 0, game over and restart game
 * add const to functions - go 1 by 1 to add const for example drow mario function....
+* explosion of barrel erasing mario in mistake
+* 
 **/ 

@@ -53,3 +53,29 @@ void Barrel::move()
      
     }
 }
+
+void Barrel::explosion()
+{
+        gotoxy(_position.getX() + 1, _position.getY());
+        std::cout << "*";
+
+        gotoxy(_position.getX() - 1, _position.getY());
+        std::cout << "*";
+
+        gotoxy(_position.getX(), _position.getY() - 1);
+        std::cout << "*";
+
+        Sleep(GameConfig::MOVE_DELAY);
+
+        gotoxy(_position.getX() + 1, _position.getY());
+        std::cout << " ";
+
+        gotoxy(_position.getX() - 1, _position.getY());
+        std::cout << " ";
+
+        gotoxy(_position.getX(), _position.getY() - 1);
+        std::cout << " ";
+
+        _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+        _count_falling = 0;
+}

@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <conio.h>
-#include <windows.h>
 
 class Game {
     char ch;

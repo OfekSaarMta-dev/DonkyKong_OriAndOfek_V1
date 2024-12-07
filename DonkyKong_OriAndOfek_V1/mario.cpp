@@ -1,5 +1,4 @@
 #include "mario.h"
-#include "gameConfig.h"
 
 void Mario::draw(char ch)// Draw character at Mario's position
 {
@@ -7,7 +6,7 @@ void Mario::draw(char ch)// Draw character at Mario's position
     cout << ch;
 }
 
-void Mario::drawLives() const
+/*void Mario::drawLives() const
 {
 	gotoxy(17, 2); // Position to draw lives
     for (int i = 0; i < _life; ++i) 
@@ -21,7 +20,7 @@ void Mario:: decreaseLife()
 {
     if (_life > 0)
         _life--;
-}
+}*/
 
 // Handles key presses to control Mario's actions
 void Mario::keyPressed(char key)
@@ -58,7 +57,7 @@ void Mario::keyPressed(char key)
 
         case (char)GameConfig::movementKeys::UP: // Jump or climb check
             if (_pMap->getCharOriginalMap(_position.getX(), _position.getY()) != (char)GameConfig::utilKeys::LADDER &&
-                _pMap->isFloor(_position.getX(), _position.getY() + 1)) // 
+                _pMap->isFloor(_position.getX(), _position.getY() + 1)) 
             {
                 jump();
             }
@@ -85,7 +84,6 @@ void Mario::keyPressed(char key)
     }
 }
 
-// Handles Mario's jumping action with a simple upward and downward motion
 void Mario::jump()
 {
     // Going up
@@ -119,7 +117,7 @@ void Mario::climb(char key)
 // Moves Mario based on current direction and checks for collisions with edges or floors
 void Mario::move()
 {
-    /*if ('position mario == position barrel' || position mario == erea of the explosion)
+    /*if (position mario == position barrel || position mario == erea of the explosion '*')
     {
 		die();
 	}*/
@@ -142,12 +140,12 @@ void Mario::move()
         {
             _dir.y = 1; // Free fall if there's no floor below Mario
         }
-		_count_falling++; // Count falling steps
+        _count_falling++; // Count falling steps
     }
-    else
+    else // new 
     {
         // Mario lands on the floor
-        if (_count_falling >= 5 && _pMap->getCharOriginalMap(_position.getX(), _position.getY() + 1) == (char)GameConfig::utilKeys::FLOOR)
+        if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE && _pMap->getCharOriginalMap(_position.getX(), _position.getY() + 1) == (char)GameConfig::utilKeys::FLOOR)
         {
             die(); // Trigger Mario's death
         }
@@ -204,7 +202,7 @@ void Mario::die()
 	}
 	else
 	{
-		//cout << "Game Over!" << endl;
+		cout << "Game Over!" << endl;
 		
 
 	}*/
