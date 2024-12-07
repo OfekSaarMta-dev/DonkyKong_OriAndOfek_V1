@@ -189,12 +189,8 @@ void Mario::die()
 	_count_falling = 0; // Reset falling counter
 	_dir = { 0, 0 }; // Stop movement
 	_jumpCounter = 0; // Reset jump counter
-	_pMap->reset(); // Reset map
 
-    system("cls"); // Clear console screen
-    
-	_pMap->print(); // Print map
-
+   
 
 	/*if (_life > 0)
 	{
