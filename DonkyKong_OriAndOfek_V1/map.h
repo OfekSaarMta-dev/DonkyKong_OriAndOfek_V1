@@ -33,7 +33,7 @@ private:
 		  "Q               ================================== ==========                  Q", // 19
 		  "Q                         H                                                    Q", // 20
 		  "Q                         H                                                    Q", // 21
-		  "Q                         H                                   #                Q", // 22
+		  "Q                         H                                                    Q", // 22
 		  "Q=================================>>>>=========================================Q", // 23
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
 	};

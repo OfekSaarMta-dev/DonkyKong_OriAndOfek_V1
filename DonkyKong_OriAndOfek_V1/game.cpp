@@ -105,7 +105,6 @@ void Game::run()
 
         if (!isPaused) // the game is running
         {
-            mario.drawLives(); // Show lives
             mario.draw();
 
             // Draw active barrels
@@ -150,13 +149,13 @@ void Game::run()
 void Game::showInstructions()
 {
     system("cls");
-    std::cout << "Instructions:\n";
-    std::cout << "a/A - Move Left\n";
-    std::cout << "d/D - Move Right\n";
-    std::cout << "w/W - Jump/Climb Up\n";
-    std::cout << "x/X - Climb Down\n";
-    std::cout << "s/S - Stay\n";
-    std::cout << "ESC - Pause Game\n";
-    std::cout << "\nPress any key to return to menu...";
+    cout << "Instructions:\n";
+    cout << "a/A - Move Left\n";
+    cout << "d/D - Move Right\n";
+    cout << "w/W - Jump/Climb Up\n";
+    cout << "x/X - Climb Down\n";
+    cout << "s/S - Stay\n";
+    cout << "ESC - Pause Game\n";
+    cout << "\nPress any key to return to menu...";
     ch = _getch();
 }
