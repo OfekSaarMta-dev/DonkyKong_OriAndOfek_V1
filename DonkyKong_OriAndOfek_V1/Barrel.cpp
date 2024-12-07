@@ -32,7 +32,7 @@ void Barrel::move()
 
     if (_pMap->isFloor(newX, newY)) // Upon collision with floor
     {
-        if(_count_falling >= 8)
+        if(_count_falling >= GameConfig::NUM_OF_CHARS_FOR_BARREL_EXPLODE)
         {
             this->explosion();
         }

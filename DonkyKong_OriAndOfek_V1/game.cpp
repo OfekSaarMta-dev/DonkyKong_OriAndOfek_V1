@@ -105,6 +105,7 @@ void Game::run()
 
         if (!isPaused) // the game is running
         {
+            mario.drawLives(); // Show lives
             mario.draw();
 
             // Draw active barrels
@@ -129,8 +130,8 @@ void Game::run()
 
             gameLoopCounter++;
 
-            // Activate a new barrel every 8 loops, up to MAX_BARRELS
-            if (gameLoopCounter >= 8) /// change to game config
+            // Activate a new barrel every 16 loops, up to MAX_BARRELS
+            if (gameLoopCounter >= 16) /// change to game config
             {
                 if (activeBarrels < GameConfig::MAX_BARRELS)
                 {

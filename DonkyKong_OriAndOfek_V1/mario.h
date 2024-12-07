@@ -15,20 +15,25 @@ private:
 	Point _position; // Mario's position
 	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
 	Map* _pMap = nullptr; // Pointer to Map object
+	int _life = 3; // Mario's life counter
 
 
 	void draw(char ch);// Draw character at Mario's position
 	
 
 public:
-	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO){}  // Constructor
+	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO) {}  // Constructor
 		
 	void draw() { draw('@'); }  // Draw Mario
+	void drawLives() const;  // Draw Mario's lives
+	void decreaseLife();  // Decrease Mario's life
 	void erase(); // Erase Mario
 
-	// Getters for position
+	// Getters for position and life
 	int getX() {return _position.getX();}
 	int getY() {return _position.getY();}
+	int getLife() { return _life; }
+
 
 	void keyPressed(char key);  // Handle key press
 	void jump();  // Perform jump action
