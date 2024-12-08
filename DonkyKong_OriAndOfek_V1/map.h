@@ -48,9 +48,12 @@ public:
 	void print() const;  // Print current map state
 	char getCharCurrentMap(int x, int y) const;
 	char getCharOriginalMap(int x, int y) const;
+	bool isEdge(const int x, const int y) const;
 	bool isFloor(const int x, const int y) const;
+	bool isLadder(const int x, const int y) const;
 	bool isRfloor(const int x, const int y) const;
 	bool isLfloor(const int x, const int y) const;
+	bool isSpace(const int x, const int y) const;
 	void updateCurrMap(const int x,const int y,const char ch);
 };
 

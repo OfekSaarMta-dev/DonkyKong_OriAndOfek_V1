@@ -37,4 +37,6 @@ int main()
 * add dirr of mario and barrel to ctor
 * change game.h all functions to private
 * creat functions of each kind of floor (::utilkeys:: ugly)
+* is ladder function
+* is Q function
 **/ 

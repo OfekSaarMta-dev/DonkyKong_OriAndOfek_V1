@@ -101,35 +101,35 @@ void Game::run()
 
         if (!isPaused) // the game is running
         {
-            mario.draw();
 
             // Draw active barrels
             for (int i = 0; i < activeBarrels; i++)
             {
                 barrels[i].draw();
             }
+			mario.draw();
 
             Sleep(GameConfig::MOVE_DELAY);
 
-            mario.erase();
             for (int i = 0; i < activeBarrels; i++)
             {
-                barrels[i].erase();
+                if (barrels[i].isExploded())
+                {
+					barrels[i].clearExplosion();
+                }
+                else
+                {
+					barrels[i].erase();
+                }
             }
+			mario.erase();
 
-            mario.move();
             for (int i = 0; i < activeBarrels; i++)
             {
                 barrels[i].move();
-                // if (barrel[i]._exploded)
-                //  {
-                //      if(marioExploded(barrels[i]) )
-                //      {
-                //          mario->die()
-                //       }
-                //      barrel.clearExplosion()
-                //      barrel[i].clearExplosion
             }
+
+			mario.move();
 
             gameLoopCounter++;
 

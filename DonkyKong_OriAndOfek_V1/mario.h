@@ -41,4 +41,5 @@ public:
 	void move();  // Move Mario
 	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
 	void die();  // Mario die
+	bool gotHit();
 };

@@ -31,7 +31,6 @@ public:
 	void setMap(Map& map) { _pMap = &map; } // Set Map reference
 	void explosion();
 	void clearExplosion();
+	bool isExploded() const { return _exploded; }
 	
-
-
 };

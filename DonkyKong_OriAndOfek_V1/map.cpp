@@ -31,11 +31,22 @@ char Map::getCharOriginalMap(int x, int y) const
     return _originalMap[y][x];
 }
 
+bool Map::isEdge(const int x, const int y) const
+{
+    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::EDGE;
+}
+
+
 bool Map::isFloor(const int x, const int y) const
 {
     return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::FLOOR ||
-        getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR ||
-        getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::RFLOOR;
+           getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR ||
+           getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::RFLOOR;
+}
+
+bool Map::isLadder(const int x, const int y) const
+{
+    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LADDER;
 }
 
 bool Map::isRfloor(const int x, const int y) const
@@ -47,6 +58,12 @@ bool Map::isLfloor(const int x, const int y) const
 {
     return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR;
 }
+
+bool Map::isSpace(const int x, const int y) const
+{
+	return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::SPACE;
+}
+
 
 void Map::updateCurrMap(const int x, const int y, const char ch)
 {
