@@ -9,7 +9,7 @@ void Map::reset()
     {
         memcpy(_currentMap[i], _originalMap[i], GameConfig::GAME_WIDTH + 1);
     }
-	//reset barrel position.......
+	
 }
 
 // Prints the current state of the map to the console
@@ -23,7 +23,7 @@ void Map::print() const {
 
 char Map::getCharCurrentMap(int x, int y) const     // Get character at specified coordinates
 {
-  return _currentMap[y][x];            ///// to Ask ori why need this function????? 
+  return _currentMap[y][x];         
 }
 
 char Map::getCharOriginalMap(int x, int y) const
