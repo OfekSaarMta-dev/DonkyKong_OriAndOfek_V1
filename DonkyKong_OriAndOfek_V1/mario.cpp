@@ -120,60 +120,67 @@ void Mario::move()
 {
     int currX = _position.getX();
     int currY = _position.getY();
-
-    if (!_pMap->isFloor(currX, currY + 1) && _pMap->isSpace(currX, currY + 1)) // if mario isn't on floor, he is above space
+    
+    if (this->gotHit())
     {
-        if(_dir.y == -1) // if in the middle of jumping
-        {
-            if (_jumpCounter == 1) // if mario reaches peak of jump, fall
-            {
-				_dir.y = 1;
-                _jumpCounter = 0;
-            }                     
-            else                  
-                _jumpCounter++;   
-        }
-        else // not in the middle of a jump
-        {
-            _dir.y = 1; // Free fall if there's no floor below Mario
-            _count_falling++; // Count falling steps
-        }
+        this->die();
     }
-  
-    const int newX = currX + _dir.x;
-    const int newY = currY + _dir.y;
-
-    if (_pMap->isEdge(newX, newY) || _pMap->isFloor(newX, newY)) // Upon collision with edge/floor
+    else
     {
-        if (_pMap->isLadder(currX, currY) && _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
+        if (!_pMap->isFloor(currX, currY + 1) && _pMap->isSpace(currX, currY + 1)) // if mario isn't on floor, he is above space
         {
-            _position.setY(currY - 2); // Move Mario above the floor
-            _dir = { 0, 0 }; // and stop his movement
-        }
-        else if (_pMap->isSpace(currX, currY + 1)) // if mario walk on top of a hole in the floor
-        {
-			_dir = { 0, 1 }; // fall straight down
-        }
-        else if (_dir.y == 1 && _pMap->isFloor(newX, newY)) // Mario is falling
-        {
-            if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
+            if (_dir.y == -1) // if in the middle of jumping
             {
-                this->die(); // Trigger Mario's death
+                if (_jumpCounter == 1) // if mario reaches peak of jump, fall
+                {
+                    _dir.y = 1;
+                    _jumpCounter = 0;
+                }
+                else
+                    _jumpCounter++;
             }
-            else
+            else // not in the middle of a jump
             {
-                _count_falling = -1; // reset falling counter
-				_dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
+                _dir.y = 1; // Free fall if there's no floor below Mario
+                _count_falling++; // Count falling steps
             }
         }
-        else // if mario walked into a wall or edge
+
+        const int newX = currX + _dir.x;
+        const int newY = currY + _dir.y;
+
+        if (_pMap->isEdge(newX, newY) || _pMap->isFloor(newX, newY)) // Upon collision with edge/floor
         {
-        _dir = { 0, 0 }; // Stop movement
+            if (_pMap->isLadder(currX, currY) && _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
+            {
+                _position.setY(currY - 2); // Move Mario above the floor
+                _dir = { 0, 0 }; // and stop his movement
+            }
+            else if (_pMap->isSpace(currX, currY + 1)) // if mario walk on top of a hole in the floor
+            {
+                _dir = { 0, 1 }; // fall straight down
+            }
+            else if (_dir.y == 1 && _pMap->isFloor(newX, newY)) // Mario is falling
+            {
+                if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
+                {
+                    this->die(); // Trigger Mario's death
+                }
+                else
+                {
+                    _count_falling = -1; // reset falling counter
+                    _dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
+                }
+            }
+            else // if mario walked into a wall or edge
+            {
+                _dir = { 0, 0 }; // Stop movement
+            }
         }
-    }
-    else // Update position if no collision occurs
-    {
-        _position.setXY(newX, newY);
+        else // Update position if no collision occurs
+        {
+            _position.setXY(newX, newY);
+        }
     }
 }
 

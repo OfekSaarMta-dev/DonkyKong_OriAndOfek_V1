@@ -9,7 +9,7 @@ void Barrel::draw(char ch)// Draw character at Barrel's position
     gotoxy(barrelX, barrelY);
     cout << ch; // print barrel on screen
     
-    _pMap->updateCurrMap(barrelX, barrelY, ch); // put barrel inside current map
+    //_pMap->updateCurrMap(barrelX, barrelY, ch); // put barrel inside current map
 }
 
 
@@ -58,7 +58,7 @@ void Barrel::move()
     else // Update position if no collision occurs
     {
         _position.setXY(newX, newY);
-     
+        _pMap->updateCurrMap(newX, newY, 'O'); // put barrel inside current map
     }
 }
 
