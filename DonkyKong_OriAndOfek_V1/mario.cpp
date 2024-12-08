@@ -139,20 +139,10 @@ void Mario::move()
         else // not in the middle of a jump
         {
             _dir.y = 1; // Free fall if there's no floor below Mario
+            _count_falling++; // Count falling steps
         }
-        _count_falling++; // Count falling steps
     }
-    else // new 
-    {
-        // Mario lands on the floor
-        if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE && _pMap->getCharOriginalMap(_position.getX(), _position.getY() + 1) == (char)GameConfig::utilKeys::FLOOR)
-        {
-            die(); // Trigger Mario's death
-        }
-
-        _count_falling = 0; // Reset falling count when hitting the floor if he is not dead;
-    }
-
+  
     const int newX = _position.getX() + _dir.x;
     const int newY = _position.getY() + _dir.y;
 
@@ -168,9 +158,17 @@ void Mario::move()
         {
 			_dir = { 0, 1 }; // fall straight down
         }
-        else if (_dir.y == 1)
+        else if (_dir.y == 1 && _pMap->isFloor(newX, newY)) // Mario is falling
         {
-			_dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
+            if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
+            {
+                die(); // Trigger Mario's death
+            }
+            else
+            {
+                _count_falling = -1;
+				_dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
+            }
         }
         else // if mario walked into a wall or edge
         {
@@ -186,9 +184,10 @@ void Mario::move()
 void Mario::die()
 {
 	_position.setXY(GameConfig::START_X_MARIO, GameConfig::START_Y_MARIO); // Reset Mario's position
-	_count_falling = 0; // Reset falling counter
+	_count_falling = -1; // Reset falling counter
 	_dir = { 0, 0 }; // Stop movement
 	_jumpCounter = 0; // Reset jump counter
+    
 
    
 

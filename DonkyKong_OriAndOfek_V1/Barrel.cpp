@@ -4,23 +4,30 @@ using namespace std;
 
 void Barrel::draw(char ch)// Draw character at Barrel's position
 {
-    gotoxy(_position.getX(), _position.getY());
-    cout << ch;
+    int barrelX = _position.getX();
+    int barrelY = _position.getY();
+    gotoxy(barrelX, barrelY);
+    cout << ch; // print barrel on screen
+    
+    _pMap->updateCurrMap(barrelX, barrelY, ch); // put barrel inside current map
 }
 
 
 void Barrel::erase()
 {
-    char originalChar = _pMap->getCharOriginalMap(_position.getX(), _position.getY());
-    gotoxy(_position.getX(), _position.getY());
-    cout << originalChar; // Restore original character instead of erasing it with space.
+    int barrelX = _position.getX();
+    int barrelY = _position.getY();
+    char originalChar = _pMap->getCharOriginalMap(barrelX, barrelY);
+    gotoxy(barrelX, barrelY);
+    cout << originalChar; // print original char
+
+	_pMap->updateCurrMap(barrelX, barrelY, originalChar); // erasing from current map (putting original char)
 }
 
 void Barrel::move()
 {
-    // Check if Barrel is on the floor using the isFloor method
-    if (!_pMap->isFloor(_position.getX(), _position.getY() + 1))/* && // If there's no floor below Baarrel
-        _pMap->getCharOriginalMap(_position._x, _position._y + 1) == (char)GameConfig::utilKeys::SPACE) //he is not on ladder which means there is space below him*/
+    // Check if Barrel is on the floor using the 
+    if (!_pMap->isFloor(_position.getX(), _position.getY() + 1))// If there's no floor below Baarrel
     {
         _dir.x = 0;
         _dir.y = 1; // Free fall if there's no floor below Barrel
@@ -35,6 +42,7 @@ void Barrel::move()
         if(_count_falling >= GameConfig::NUM_OF_CHARS_FOR_BARREL_EXPLODE)
         {
             this->explosion();
+            // 
         }
         else
             _count_falling = 0;
@@ -44,8 +52,6 @@ void Barrel::move()
 
         if(_pMap->isRfloor(newX, newY))
         _dir = GameConfig::directions[1]; // going right
-
-       
     }
     else // Update position if no collision occurs
     {
@@ -56,26 +62,62 @@ void Barrel::move()
 
 void Barrel::explosion()
 {
-        gotoxy(_position.getX() + 1, _position.getY());
-        std::cout << "*";
+    //*****
+    //***** 
+    //**O** 
+    
+    int barrelX = _position.getX();
+    int barrelY = _position.getY();
 
-        gotoxy(_position.getX() - 1, _position.getY());
-        std::cout << "*";
+    gotoxy(barrelX - 2, barrelY - 2);
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "*";
+    }
 
-        gotoxy(_position.getX(), _position.getY() - 1);
-        std::cout << "*";
+    gotoxy(barrelX - 2, barrelY - 1);
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "*";
+    }
 
-        Sleep(GameConfig::MOVE_DELAY);
+    gotoxy(barrelX - 2, barrelY);
+    for (int i = 0; i < 6; i++)
+    {
+        if(i != 2)
+            cout << "*";
+    }
 
-        gotoxy(_position.getX() + 1, _position.getY());
-        std::cout << " ";
+  
+	this->erase();
+    _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+    _count_falling = 0;
+}
 
-        gotoxy(_position.getX() - 1, _position.getY());
-        std::cout << " ";
+void Barrel::clearExplosion()
+{
+	int barrelX = _position.getX();
+	int barrelY = _position.getY();
 
-        gotoxy(_position.getX(), _position.getY() - 1);
-        std::cout << " ";
+    char originalChar = _pMap->getCharOriginalMap(barrelX, barrelY);
 
-        _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
-        _count_falling = 0;
+
+	gotoxy(barrelX - 2, barrelY - 2);
+	for (int i = 0; i < 5; i++)
+	{
+        cout << originalChar; // print original char
+    }
+
+	gotoxy(barrelX - 2, barrelY - 1);
+	for (int i = 0; i < 5; i++)
+	{
+        cout << originalChar; // print original char
+    }
+
+	gotoxy(barrelX - 2, barrelY);
+	for (int i = 0; i < 6; i++)
+	{
+		if (i != 2)
+            cout << originalChar; // print original char
+    }
 }

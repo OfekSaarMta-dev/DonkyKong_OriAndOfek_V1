@@ -10,9 +10,6 @@ int main()
 
 
 /*
-* stoping when reaching a hole
-* mario in jump move only  1 char in x axis!!!!!!!!!!!!!
-* mario stop moving when jumping on floor!!!!!!
 * remove cursor
 * be able to jump on ledder while moving  
 * while falling after 5 chars the game will restart to original map and mirio will start from the begining and score will reduse by 1
@@ -34,5 +31,5 @@ int main()
 * when life  = 0, game over and restart game
 * add const to functions - go 1 by 1 to add const for example drow mario function....
 * explosion of barrel erasing mario in mistake
-* 
+* mario doesn't die when falling .... 
 **/ 

@@ -2,7 +2,12 @@
 #include <windows.h> // For gotoxy
 #include <process.h> // For system
 #include <iostream>
+
 using namespace std;
+
+
+// Note: The functions here are used for basic console manipulation,
+// such as moving the cursor and clearing the screen.
 
 // Moves the console cursor to the specified (x, y) position
 void gotoxy(int x, int y) 
@@ -31,6 +36,3 @@ void ShowConsoleCursor(bool showFlag)
     cursorInfo.bVisible = showFlag; // Set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
 }
-
-// Note: The functions here are used for basic console manipulation,
-// such as moving the cursor and clearing the screen.

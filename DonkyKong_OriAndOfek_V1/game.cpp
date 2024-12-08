@@ -121,6 +121,14 @@ void Game::run()
             for (int i = 0; i < activeBarrels; i++)
             {
                 barrels[i].move();
+                // if (barrel[i]._exploded)
+                //  {
+                //      if(marioExploded(barrels[i]) )
+                //      {
+                //          mario->die()
+                //       }
+                //      barrel.clearExplosion()
+                //      barrel[i].clearExplosion
             }
 
             gameLoopCounter++;

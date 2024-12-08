@@ -47,3 +47,8 @@ bool Map::isLfloor(const int x, const int y) const
 {
     return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR;
 }
+
+void Map::updateCurrMap(const int x, const int y, const char ch)
+{
+    _currentMap[y][x] = ch;
+}

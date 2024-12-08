@@ -14,7 +14,7 @@ private:
 	GameConfig::Direction _dir{0, 0}; // starting dir.x and dir.y
 	Map* _pMap = nullptr; // Pointer to Map object
 	int _jumpCounter; // Counter for jump height
-	int _count_falling = 0;
+	int _count_falling = -1;
 	int _life = 3; // Mario's life counter
 
 

@@ -42,9 +42,6 @@ private:
 
 	// Current map state
 	char _currentMap[GameConfig::GAME_HEIGHT][GameConfig::GAME_WIDTH + 1]; // +1 for null terminator
-
-
-
 	
 public:
 	void reset(); // Reset map to original state
@@ -54,5 +51,6 @@ public:
 	bool isFloor(const int x, const int y) const;
 	bool isRfloor(const int x, const int y) const;
 	bool isLfloor(const int x, const int y) const;
+	void updateCurrMap(const int x,const int y,const char ch);
 };
 
