@@ -120,8 +120,11 @@ void Mario::move()
 {
     int currX = _position.getX();
     int currY = _position.getY();
-    
-    if (this->gotHit())
+    if(this->rescuedPauline())
+    {
+        _won = true;
+    }
+    else if (this->gotHit()) // mario got hit by a barrel or explosion
     {
 		_died = true;
     }
@@ -202,6 +205,11 @@ bool Mario::gotHit()
 		return true;
 	}
 	return false;
+}
+
+bool Mario::rescuedPauline()
+{
+    return _pMap->getCharOriginalMap(_position.getX(), _position.getY()) == (char)GameConfig::utilKeys::PAULINE;
 }
 
 void Mario::erase()

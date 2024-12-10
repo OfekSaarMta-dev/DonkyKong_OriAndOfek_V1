@@ -56,14 +56,14 @@ void Game::run()
 
     bool isPaused = false;
 
-	int activeBarrels = 0;
+    int activeBarrels = 0;
     int gameLoop = 0;
 
 
-    while (mario.getLife() > 0 )//&& win == false
+    while (mario.getLife() > 0 && !mario.getWinningStatus())
     {
-		activeBarrels = this->get_gameActiveBarrels();
-		gameLoop = this->get_gameLoop();
+        activeBarrels = this->get_gameActiveBarrels();
+        gameLoop = this->get_gameLoop();
 
         if (_kbhit())
         {
@@ -106,7 +106,7 @@ void Game::run()
             {
                 barrels[i].draw();
             }
-			mario.draw();
+            mario.draw();
 
             Sleep(GameConfig::MOVE_DELAY);
 
@@ -114,21 +114,21 @@ void Game::run()
             {
                 if (barrels[i].isExploded())
                 {
-					barrels[i].clearExplosion();
+                    barrels[i].clearExplosion();
                 }
                 else
                 {
-					barrels[i].erase();
+                    barrels[i].erase();
                 }
             }
-			mario.erase();
+            mario.erase();
 
             for (int i = 0; i < activeBarrels; i++)
             {
                 barrels[i].move();
             }
 
-			mario.move();
+            mario.move();
 
             set_gameLoop(gameLoop + 1);
             // Activate a new barrel every 16 loops, up to MAX_BARRELS
@@ -136,22 +136,31 @@ void Game::run()
             {
                 if (activeBarrels < GameConfig::MAX_BARRELS)
                 {
-					this->set_gameActiveBarrels(activeBarrels + 1);
+                    this->set_gameActiveBarrels(activeBarrels + 1);
                 }
                 set_gameLoop(0); // Reset the counter
             }
 
-			if (mario.getLifeStatus()) //checking if mario dies // _died = true
-			{
-				this->resetStage(barrels, &mario, &map);
-			}
+            if (mario.getLifeStatus()) //checking if mario dies // _died = true
+            {
+                this->resetStage(barrels, &mario, &map);
+            }
         }
         else
         {
             Sleep(GameConfig::MOVE_DELAY);
         }
     }
- //// game over
+
+    if (mario.getLife() == 0) // Game Over
+    {
+        gameOverScreen();
+    }
+    else // Mario Won
+    {
+        gameWinningScreen();
+    }
+
 }
 
 
@@ -244,6 +253,7 @@ void Game::MenuScreen()
 
 void Game::gameOverScreen()
 {
+    system("cls"); // Clear the screen
     // Game Over screen layout
     const char* gameOverMap[GameConfig::GAME_HEIGHT] = {
         "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
@@ -287,6 +297,7 @@ void Game::gameOverScreen()
 
 void Game::gameWinningScreen()
 {
+    system("cls"); // Clear the screen
     // Game Winning screen layout
     const char* winningScreenMap[GameConfig::GAME_HEIGHT] = {
         "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
