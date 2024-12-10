@@ -47,20 +47,24 @@ void Game::run()
     mario.setMap(map);   // Link Mario to map
     mario.setBarrel(barrels); // Link Mario to Barrels array
 
+
     for (int i = 0; i < GameConfig::MAX_BARRELS; i++)
     {
         barrels[i] = Barrel();    // Create a barrel and assign it to the array
         barrels[i].setMap(map);   // Set the map for each barrel
     }
 
-    bool isRunning = true;
     bool isPaused = false;
 
-    int activeBarrels = 0;       // Tracks number of active barrels
-    int gameLoopCounter = 0;     // Counter to control barrel activation
+	int activeBarrels = 0;
+    int gameLoop = 0;
 
-    while (isRunning)
+
+    while (mario.getLife() > 0 )//&& win == false
     {
+		activeBarrels = this->get_gameActiveBarrels();
+		gameLoop = this->get_gameLoop();
+
         if (_kbhit())
         {
             char keyPressed = _getch(); // Get pressed key
@@ -96,11 +100,7 @@ void Game::run()
 
         if (!isPaused) // the game is running
         {
-          //  if (mario.getStatus()) //checking if mario dies
-           // {
-          //      this->resetStage(barrels, &mario);
-         //   }
-            
+
             // Draw active barrels
             for (int i = 0; i < activeBarrels; i++)
             {
@@ -130,16 +130,21 @@ void Game::run()
 
 			mario.move();
 
-            gameLoopCounter++;
+            set_gameLoop(gameLoop + 1);
             // Activate a new barrel every 16 loops, up to MAX_BARRELS
-            if (gameLoopCounter >= 16) /// change to game config
+            if (gameLoop >= 16) /// change to game config
             {
                 if (activeBarrels < GameConfig::MAX_BARRELS)
                 {
-                    activeBarrels++;
+					this->set_gameActiveBarrels(activeBarrels + 1);
                 }
-                gameLoopCounter = 0; // Reset the counter
+                set_gameLoop(0); // Reset the counter
             }
+
+			if (mario.getLifeStatus()) //checking if mario dies // _died = true
+			{
+				this->resetStage(barrels, &mario, &map);
+			}
         }
         else
         {
@@ -322,16 +327,19 @@ void Game::gameWinningScreen()
     _ch = _getch();
 }
 
-void Game::resetStage(Barrel* barrels, Mario* mario)
+void Game::resetStage(Barrel* pBarrels, Mario* pMario, Map* pMap)
 {
     for (int i = 0; i < _activeBarrels; ++i)
     {
-        barrels[i].resetBarrel();
+        pBarrels[i].resetBarrel();
     }
 
-    mario->die();
+    pMario->reset(); // mario died
     set_gameLoop(0);
-    set_activeBarrels(0);
+    set_gameActiveBarrels(0);
+
+    pMap->eraseLife(pMario->getLife() + 1);
+    pMap->drawLife(pMario->getLife());
 }
 
 

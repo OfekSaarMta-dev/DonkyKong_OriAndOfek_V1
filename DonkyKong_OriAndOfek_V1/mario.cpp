@@ -123,7 +123,7 @@ void Mario::move()
     
     if (this->gotHit())
     {
-        this->die();
+		_died = true;
     }
     else
     {
@@ -165,7 +165,7 @@ void Mario::move()
             {
                 if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
                 {
-                    this->die(); // Trigger Mario's death
+					_died = true; // Trigger Mario's death
                 }
                 else // if mario hit the floor but fell less than 5 chars
                 {
@@ -185,30 +185,13 @@ void Mario::move()
     }
 }
 
-void Mario::die()
+void Mario::reset()
 {
-    for(int i = 0; i < GameConfig::MAX_BARRELS; i++)
-    {
-        _pBarrel[i].resetBarrel();
-    }
 	_position.setXY(GameConfig::START_X_MARIO, GameConfig::START_Y_MARIO); // Reset Mario's position
 	_count_falling = -1; // Reset falling counter
 	_dir = { 0, 0 }; // Stop movement
-    
-    
-
-   
-
-	/*if (_life > 0)
-	{
-		decreaseLife(); // Decrease life count
-	}
-	else
-	{
-		cout << "Game Over!" << endl;
-		
-
-	}*/
+    _died = false;
+    _life--;
 }
 
 bool Mario::gotHit()
@@ -219,7 +202,6 @@ bool Mario::gotHit()
 		return true;
 	}
 	return false;
-
 }
 
 void Mario::erase()

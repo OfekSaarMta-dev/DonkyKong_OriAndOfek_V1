@@ -28,13 +28,15 @@ public:
     Game& operator=(const Game&) = delete; // Copy assignment operator
 
     void menu();
-    void resetStage(Barrel* barrels, Mario* mario);
+    void resetStage(Barrel* pBarrel, Mario* pMario, Map* pMap);
 
     int get_gameLoop() const { return _gameLoop; }
-    int get_activeBarrels() const { return _activeBarrels; }
+    int get_gameActiveBarrels() const { return _activeBarrels; }
 
     void set_gameLoop(int x) { _gameLoop = x; } 
-    void set_activeBarrels(int x) { _activeBarrels = x; }
+    void set_gameActiveBarrels(int x) { _activeBarrels = x; }
+
+
 
 
 

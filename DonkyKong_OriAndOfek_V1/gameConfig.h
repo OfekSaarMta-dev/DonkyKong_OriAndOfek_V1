@@ -4,7 +4,6 @@
 
 class GameConfig
 {
-
 public:
     // Game dimensions
     static constexpr int GAME_WIDTH = 80;  // x
@@ -30,13 +29,13 @@ public:
     static constexpr int START_Y_MARIO = 22;
 	static constexpr int NUM_OF_CHARS_FOR_MARIO_DIE = 5;
 
-    // barrels parameters
+    // Barrels parameters
     static constexpr int MAX_BARRELS = 5;
 	static constexpr int NUM_OF_CHARS_FOR_BARREL_EXPLODE = 8;
     static constexpr int START_x_BARREL = 49 ;
     static constexpr int START_Y_BARREL = 4;
 
-
-
-
+    // Life parameters
+    static constexpr int LIFE_X = 17;
+    static constexpr int LIFE_y = 2;
 };

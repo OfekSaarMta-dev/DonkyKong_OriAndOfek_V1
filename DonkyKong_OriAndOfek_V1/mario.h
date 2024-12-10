@@ -20,7 +20,7 @@ private:
 
 	int _jumpCounter = 0; // Counter for jump height
 	int _count_falling = -1;
-	int _life; // Mario's life counter
+	int _life = 3; // Mario's life counter
 	bool _died = false;
 
 	void draw(char ch);// Draw character at Mario's position
@@ -41,7 +41,7 @@ public:
 	int getX() {return _position.getX();}
 	int getY() {return _position.getY();}
 	int getLife() const { return _life; }
-	bool getStatus() const { return _died; }
+	bool getLifeStatus() const { return _died; }
 
 
 
@@ -51,6 +51,6 @@ public:
 	void move();  // Move Mario
 	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
 	void setBarrel(Barrel* barrel) { _pBarrel = barrel; } // set Barrel reference
-	void die();  // Mario die
+	void reset();  // Mario die
 	bool gotHit();
 };

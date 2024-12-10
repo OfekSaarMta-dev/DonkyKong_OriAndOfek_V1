@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameConfig.h"
+#include "general.h"
 
 
 class Map
@@ -13,7 +14,7 @@ private:
 		// 01234567890123456789012345678901234567890123456789012345678901234567890123456789
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
 		  "Q                                                                              Q", // 1
-		  "Q    LIVES LEFT:                                                               Q", // 2
+		  "Q    LIVES LEFT: # # #                                                         Q", // 2
 		  "Q                                                            $                 Q", // 3
 		  "Q                                                  &         =                 Q", // 4
 		  "Q                                                  =         H                 Q", // 5
@@ -60,5 +61,9 @@ public:
 	bool isLfloor(const int x, const int y) const;
 	bool isSpace(const int x, const int y) const;
 	void updateCurrMap(const int x,const int y,const char ch);
+
+	void drawLife(const int life) const;
+	void eraseLife(const int life) const;
+
 };
 

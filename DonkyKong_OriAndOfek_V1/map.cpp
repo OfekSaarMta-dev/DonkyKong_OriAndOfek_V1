@@ -69,3 +69,21 @@ void Map::updateCurrMap(const int x, const int y, const char ch)
 {
     _currentMap[y][x] = ch;
 }
+
+void Map::drawLife(const int life) const
+{
+    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);
+    for(int i = 0; i < life; ++i)
+    {
+        cout << "# ";
+    }
+}
+
+void Map::eraseLife(const int prevLife) const
+{
+    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);
+    for (int i = 0; i < prevLife; ++i)
+    {
+        cout << "  ";
+    }
+}
