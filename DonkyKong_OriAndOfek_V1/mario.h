@@ -20,7 +20,7 @@ private:
 
 	int _jumpCounter = 0; // Counter for jump height
 	int _count_falling = -1;
-	int _life = 1; // Mario's life counter
+	int _life = 3; // Mario's life counter
 	bool _died = false;
 	bool _won = false;
 
@@ -28,14 +28,12 @@ private:
 	
 
 public:
-	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_count_falling(-1), _life(1) {}  // Constructor
+	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_count_falling(-1), _life(3) {}  // Constructor
 	Mario(const Mario&) = delete;
 	Mario& operator=(const Mario&) = delete;
 
 
 	void draw() { draw('@'); }  // Draw Mario
-	void drawLives() const;  // Draw Mario's lives
-	void decreaseLife();  // Decrease Mario's life
 	void erase(); // Erase Mario
 
 	// Getters for position and life

@@ -14,29 +14,24 @@ int main()
 
 /*
 * remove cursor
-* be able to jump on ledder while moving  
-* while falling after 5 chars the game will restart to original map and mirio will start from the begining and score will reduse by 1
-* add life to mario in private
-* add count falling to mario in private
-* add block for copy ctor 
-* restart barrels when mario die 
-* mario died and it will restart mario to start and take 1 life, if life = 0 (CLEAR SCREEN AND WRITE GAME OVER ADD 2 OPTIONS, 1 TO FINISH AND 2 TO TRY AGain
-* 
-* mario die when the barrel hit him and restart map, takes down a life
-* add life to screen
+* be able to jump on ledder while moving
+
 * add colors to screen
-* when mario touch dollar, wins the game and write a congratulations message, add option to restart game
-* when life  = 0, game over and restart game
+* 
 * add const to functions - go 1 by 1 to add const for example drow mario function....
 * !!!!!!
-* mario doesn't die when falling .... !!!!!!
+* mario dies when jumping multiple time in succession .... !!!!!!
+* mario get stuck on height 1 when jumping near a ladder
 * !!!!!!
-* to check if our functions are to dependent on each other
 * add dirr of mario and barrel to ctor
-* change game.h all functions to private
 * write comments for each function
-* write paragraph beffore for each class
+* write paragraph before for each class
 * add point to newX and newY
-* when exiting the game fix the comend lines
-* when pressing w while mario already in jump after a few times mario dies
-**/ 
+* when exiting the game fix the commend lines
+* add gameconfig to gameloops for barrels (not a magic number)
+* functions order in h files and cpp files need to match
+* delete point cpp
+* being consistent about direction in code (sometimes we used array direction and sometimes just made them on the place)
+*
+* add "readme" file with students names and bonuses if we added
+*/ 
