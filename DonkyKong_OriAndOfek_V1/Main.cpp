@@ -4,8 +4,11 @@
 
 int main()
 {
+    //Game().menu();
+
     Game game;
     game.menu();
+
 }
 
 
@@ -16,7 +19,7 @@ int main()
 * add life to mario in private
 * add count falling to mario in private
 * add block for copy ctor 
-* 
+* restart barrels when mario die 
 * mario died and it will restart mario to start and take 1 life, if life = 0 (CLEAR SCREEN AND WRITE GAME OVER ADD 2 OPTIONS, 1 TO FINISH AND 2 TO TRY AGain
 * 
 * mario die when the barrel hit him and restart map, takes down a life
@@ -31,4 +34,9 @@ int main()
 * to check if our functions are to dependent on each other
 * add dirr of mario and barrel to ctor
 * change game.h all functions to private
+* write comments for each function
+* write paragraph beffore for each class
+* add point to newX and newY
+* when exiting the game fix the comend lines
+* when pressing w while mario already in jump after a few times mario dies
 **/ 

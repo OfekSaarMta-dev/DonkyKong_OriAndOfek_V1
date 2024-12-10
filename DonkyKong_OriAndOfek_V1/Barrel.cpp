@@ -9,7 +9,6 @@ void Barrel::draw(char ch)// Draw character at Barrel's position
     gotoxy(barrelX, barrelY);
     cout << ch; // print barrel on screen
     
-    //_pMap->updateCurrMap(barrelX, barrelY, ch); // put barrel inside current map
 }
 
 
@@ -93,7 +92,6 @@ void Barrel::explosion()
 
 void Barrel::clearExplosion()
 {
-	_exploded = false;
 
 	int barrelX = _position.getX();
 	int barrelY = _position.getY();
@@ -115,7 +113,13 @@ void Barrel::clearExplosion()
 		}
 	}
 
+    this->resetBarrel();
+}
+
+void Barrel::resetBarrel()
+{
 	this->erase();
-	_position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
-	_count_falling = 0;
+    _position.setXY(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL);
+    _count_falling = 0;
+	_exploded = false;
 }

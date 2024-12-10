@@ -134,6 +134,7 @@ void Mario::move()
                 if (_jumpCounter == 1) // if mario reaches peak of jump, fall
                 {
                     _dir.y = 1;
+					_count_falling++;
                     _jumpCounter = 0;
                 }
                 else
@@ -160,13 +161,13 @@ void Mario::move()
             {
                 _dir = { 0, 1 }; // fall straight down
             }
-            else if (_dir.y == 1 && _pMap->isFloor(newX, newY)) // Mario is falling
+            else if (_dir.y == 1 && _pMap->isFloor(newX, newY)) // Mario is falling and about to hit a floor
             {
                 if (_count_falling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
                 {
                     this->die(); // Trigger Mario's death
                 }
-                else
+                else // if mario hit the floor but fell less than 5 chars
                 {
                     _count_falling = -1; // reset falling counter
                     _dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
@@ -186,10 +187,14 @@ void Mario::move()
 
 void Mario::die()
 {
+    for(int i = 0; i < GameConfig::MAX_BARRELS; i++)
+    {
+        _pBarrel[i].resetBarrel();
+    }
 	_position.setXY(GameConfig::START_X_MARIO, GameConfig::START_Y_MARIO); // Reset Mario's position
 	_count_falling = -1; // Reset falling counter
 	_dir = { 0, 0 }; // Stop movement
-	_jumpCounter = 0; // Reset jump counter
+    
     
 
    

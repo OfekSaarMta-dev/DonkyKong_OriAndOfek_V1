@@ -4,6 +4,7 @@
 
 class GameConfig
 {
+
 public:
     // Game dimensions
     static constexpr int GAME_WIDTH = 80;  // x
@@ -34,6 +35,7 @@ public:
 	static constexpr int NUM_OF_CHARS_FOR_BARREL_EXPLODE = 8;
     static constexpr int START_x_BARREL = 49 ;
     static constexpr int START_Y_BARREL = 4;
+
 
 
 

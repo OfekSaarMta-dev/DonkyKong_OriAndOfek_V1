@@ -1,7 +1,5 @@
 #include "general.h"
-#include <windows.h> // For gotoxy
-#include <process.h> // For system
-#include <iostream>
+
 
 using namespace std;
 

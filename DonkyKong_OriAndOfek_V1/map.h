@@ -44,6 +44,11 @@ private:
 	char _currentMap[GameConfig::GAME_HEIGHT][GameConfig::GAME_WIDTH + 1]; // +1 for null terminator
 	
 public:
+	Map(){}
+	Map(const Map&) = delete;             // Copy constructor
+	Map& operator=(const Map&) = delete; // Copy assignment operator
+
+
 	void reset(); // Reset map to original state
 	void print() const;  // Print current map state
 	char getCharCurrentMap(int x, int y) const;

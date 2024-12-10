@@ -15,16 +15,14 @@ private:
 	bool _exploded = false;
 
 	void draw(char ch);// Draw character at Barrel's position
-	
+
 
 public:
 
 	Barrel() : _position(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL) {} // Constructor
+	Barrel(const Barrel&) = delete;// Blocked deafault copy constructor
 
-	void draw() 
-	{
-		draw('O'); // Draw Barrel
-	} 
+	void draw() {	draw('O');} // Draw Barrel  
 
 	void erase(); // Erase Barrel
 	void move();  // Move Barrel
@@ -32,5 +30,7 @@ public:
 	void explosion();
 	void clearExplosion();
 	bool isExploded() const { return _exploded; }
+	void resetBarrel();
+
 	
 };

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Windows.h>
+#include <process.h> // For system
+#include <iostream>
 
 void gotoxy(int x, int y);
 void clrscr();
