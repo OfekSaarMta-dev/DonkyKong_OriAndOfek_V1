@@ -6,21 +6,6 @@ void Mario::draw(char ch)// Draw character at Mario's position
     cout << ch;
 }
 
-/*void Mario::drawLives() const
-{
-	gotoxy(17, 2); // Position to draw lives
-    for (int i = 0; i < _life; ++i) 
-    {
-        cout << "# ";
-    }
-    cout << endl;
-}
-
-void Mario:: decreaseLife()
-{
-    if (_life > 0)
-        _life--;
-}*/
 
 // Handles key presses to control Mario's actions
 void Mario::keyPressed(char key)

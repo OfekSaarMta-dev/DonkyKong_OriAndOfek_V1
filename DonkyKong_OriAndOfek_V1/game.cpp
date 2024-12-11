@@ -260,13 +260,13 @@ void Game::gameOverScreen()
         "Q                                                                              Q", // 1
         "Q                                                                              Q", // 2
         "Q                                                                              Q", // 3
-        "Q                            G A M E   O V E R                                 Q", // 4
+        "Q                              G A M E   O V E R                               Q", // 4
         "Q                                                                              Q", // 5
         "Q                                                                              Q", // 6
-        "Q                         Better luck next time!                               Q", // 7
+        "Q                           Better luck next time!                             Q", // 7
         "Q                                                                              Q", // 8
         "Q                                                                              Q", // 9
-        "Q                  Press any key to return to the menu...                      Q", // 10
+        "Q                     Press any key to return to the menu...                   Q", // 10
         "Q                                                                              Q", // 11
         "Q                                                                              Q", // 12
         "Q                                                                              Q", // 13

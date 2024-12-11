@@ -72,7 +72,7 @@ void Map::updateCurrMap(const int x, const int y, const char ch)
 
 void Map::drawLife(const int life) const
 {
-    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);
+    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);  
     for(int i = 0; i < life; ++i)
     {
         cout << "# ";
