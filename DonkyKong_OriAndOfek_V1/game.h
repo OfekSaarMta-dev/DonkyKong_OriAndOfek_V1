@@ -14,8 +14,8 @@ private:
 	int _activeBarrels = 0;
 
     void run();
-    void InstructionsScreen();
     void MenuScreen();
+    void InstructionsScreen();
     void gameOverScreen();
     void gameWinningScreen();
    

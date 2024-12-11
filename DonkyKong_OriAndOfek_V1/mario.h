@@ -20,16 +20,17 @@ private:
 	Barrel* _pBarrel = nullptr; // Pointer to Barrel object
 
 	int _jumpCounter = 0; // Counter for jump height
-	int _count_falling = -1;
+	int _countFalling = -1;
 	int _life = 3; // Mario's life counter
 	bool _died = false;
-	bool _won = false;
+	bool _isFalling = false;
 
-	void draw(char ch);// Draw character at Mario's position
+
+	void draw(char ch) const;// Draw character at Mario's position
 	
 
 public:
-	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_count_falling(-1), _life(3), _died(false), _won(false) {}  // Constructor
+	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_countFalling(-1), _life(3), _died(false), _isFalling(false) {}  // Constructor
 	Mario(const Mario&) = delete;
 	Mario& operator=(const Mario&) = delete;
 
@@ -38,24 +39,22 @@ public:
 
 	void erase(); // Erase Mario
 
-	// Getters for position and life
-	int getX() {return _position.getX();}
-	int getY() {return _position.getY();}
+	// Get functions
+	int getX() const {return _position.getX();}
+	int getY() const {return _position.getY();}
 	int getLife() const { return _life; }
 	bool getLifeStatus() const { return _died; }
-	bool getWinningStatus()const { return _won; }
-
+	
+	//Set functions
+	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
+	void setBarrel(Barrel* barrel) { _pBarrel = barrel; } // set Barrel reference
 
 
 	void keyPressed(char key);  // Handle key press
 	void jump();  // Perform jump action
 	void climb(char key);  // Perform climb action
 	void move();  // Move Mario
-	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
-	void setBarrel(Barrel* barrel) { _pBarrel = barrel; } // set Barrel reference
-	bool gotHit();
-	bool rescuedPauline();
+	bool gotHit()const;
+	bool rescuedPauline() const;
 	void reset();  // Mario die
-
-	
 };

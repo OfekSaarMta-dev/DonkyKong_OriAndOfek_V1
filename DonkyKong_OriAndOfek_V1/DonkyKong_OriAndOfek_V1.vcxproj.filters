@@ -30,9 +30,6 @@
     <ClCompile Include="general.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="point.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Barrel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

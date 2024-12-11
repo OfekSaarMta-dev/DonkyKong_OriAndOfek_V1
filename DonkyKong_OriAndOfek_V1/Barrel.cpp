@@ -2,7 +2,7 @@
 using namespace std;
 
 
-void Barrel::draw(char ch)// Draw character at Barrel's position
+void Barrel::draw(char ch) const// Draw character at Barrel's position
 {
     int barrelX = _position.getX();
     int barrelY = _position.getY();
@@ -12,7 +12,7 @@ void Barrel::draw(char ch)// Draw character at Barrel's position
 }
 
 
-void Barrel::erase()
+void Barrel::erase() const
 {
     char originalChar = _pMap->getCharOriginalMap(_position);
     gotoxy(_position.getX(), _position.getY());
@@ -21,7 +21,7 @@ void Barrel::erase()
 	_pMap->updateCurrMap(_position, originalChar); // erasing from current map (putting original char)
 }
 
-void Barrel::move()
+void Barrel::move() // Move Barrel
 {
     Point newPosition;
 
@@ -62,7 +62,7 @@ void Barrel::move()
 
 void Barrel::explosion()
 {
-	_exploded = true;
+    _exploded = true;
 
     Point newPosition;
 

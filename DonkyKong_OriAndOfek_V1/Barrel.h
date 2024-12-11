@@ -15,16 +15,16 @@ private:
 	bool _exploded = false;
 	
 
-	void draw(char ch);// Draw character at Barrel's position
+	void draw (char ch) const;// Draw character at Barrel's position
 
 
 public:
 
 	Barrel() : _position(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL), _dir({ 0, 1 }), _count_falling(0), _exploded(false) {} // Constructor
 
-	void draw() {	draw('O');} // Draw Barrel  
+	void draw() const {draw('O');} // Draw Barrel  
 
-	void erase(); // Erase Barrel
+	void erase() const; // Erase Barrel
 	void move();  // Move Barrel
 	void setMap(Map& map) { _pMap = &map; } // Set Map reference
 	void explosion();

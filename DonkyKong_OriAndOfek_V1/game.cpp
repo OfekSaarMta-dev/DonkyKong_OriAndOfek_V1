@@ -7,8 +7,10 @@
 using namespace std;
 
 // Displays the main menu and handles user input for menu options.
-void Game::menu()
+void Game::menu() 
 {
+    ShowConsoleCursor(false); // Hide the console cursor
+
     while (true)
     {
         MenuScreen();
@@ -26,6 +28,7 @@ void Game::menu()
             break;
 
         case '9':
+            system("cls"); // Clear the screen
             return; // Exit menu loop and end program
 
         default:
@@ -61,7 +64,7 @@ void Game::run()
     int gameLoop = 0;
 
 
-    while (mario.getLife() > 0 && !mario.getWinningStatus())
+    while (mario.getLife() > 0 && !mario.rescuedPauline())
     {
         activeBarrels = this->get_gameActiveBarrels();
         gameLoop = this->get_gameLoop();
@@ -70,6 +73,7 @@ void Game::run()
         {
 
             char keyPressed = _getch(); // Get pressed key
+
             
             if (keyPressed == (char)GameConfig::utilKeys::ESC) // pressing ESC
             {
@@ -165,6 +169,46 @@ void Game::run()
 
 }
 
+void Game::MenuScreen() 
+{
+    system("cls"); // Clear the screen
+    // Menu layout screen
+    const char* menuMap[GameConfig::GAME_HEIGHT] = {
+     "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
+     "Q                                                                              Q", // 1
+     "Q                                                                              Q", // 2
+     "Q                      WELCOME TO DONKEY KONG CLASSIC                          Q", // 3
+     "Q                                                                              Q", // 4
+     "Q                      Developed by: Ofek Saar & Ori Ratzabi                   Q", // 5
+     "Q                                                                              Q", // 6
+     "Q                       1. Start a New Game                                    Q", // 7
+     "Q                       8. Instructions                                        Q", // 8
+     "Q                       9. Exit                                                Q", // 9
+     "Q                                                                              Q", // 10
+     "Q                                                                              Q", // 11
+     "Q                       Enter Your Choice:                                     Q", // 12
+     "Q                                                                              Q", // 13
+     "Q                       Prepare to Climb, Jump, and be amazed!                 Q", // 14
+     "Q                                                                              Q", // 15
+     "Q                                                                              Q", // 16
+     "Q                                                                              Q", // 17
+     "Q                                                                              Q", // 18
+     "Q                                                                              Q", // 19
+     "Q                                                                              Q", // 20
+     "Q                                                                              Q", // 21
+     "Q                                                                              Q", // 22
+     "Q                                                                              Q", // 23
+     "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
+    };
+
+    // Print the menu  to the console
+    for (int i = 0; i < GameConfig::GAME_HEIGHT - 1; ++i)
+    {
+        cout << menuMap[i] << endl;
+    }
+    cout << menuMap[GameConfig::GAME_HEIGHT - 1];
+
+}
 
 void Game::InstructionsScreen()
 {
@@ -211,49 +255,9 @@ void Game::InstructionsScreen()
     //return cursur to start 
 }
 
-void Game::MenuScreen()
-{
-    system("cls"); // Clear the screen
-    // Menu layout screen
-    const char* menuMap[GameConfig::GAME_HEIGHT] = {
-     "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
-     "Q                                                                              Q", // 1
-     "Q                                                                              Q", // 2
-     "Q                      WELCOME TO DONKEY KONG CLASSIC                          Q", // 3
-     "Q                                                                              Q", // 4
-     "Q                      Developed by: Ofek Saar & Ori Ratzabi                   Q", // 5
-     "Q                                                                              Q", // 6
-     "Q                       1. Start a New Game                                    Q", // 7
-     "Q                       8. Instructions                                        Q", // 8
-     "Q                       9. Exit                                                Q", // 9
-     "Q                                                                              Q", // 10
-     "Q                                                                              Q", // 11
-     "Q                       Enter Your Choice:                                     Q", // 12
-     "Q                                                                              Q", // 13
-     "Q                       Prepare to Climb, Jump, and be amazed!                 Q", // 14
-     "Q                                                                              Q", // 15
-     "Q                                                                              Q", // 16
-     "Q                                                                              Q", // 17
-     "Q                                                                              Q", // 18
-     "Q                                                                              Q", // 19
-     "Q                                                                              Q", // 20
-     "Q                                                                              Q", // 21
-     "Q                                                                              Q", // 22
-     "Q                                                                              Q", // 23
-     "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
-    };
-
-    // Print the menu  to the console
-    for (int i = 0; i < GameConfig::GAME_HEIGHT -1; ++i)
-    {
-        cout << menuMap[i] << endl;
-    }
-    cout << menuMap[GameConfig::GAME_HEIGHT -1];
-
-}
 
 
-void Game::gameOverScreen()
+void Game::gameOverScreen() 
 {
     system("cls"); // Clear the screen
     // Game Over screen layout

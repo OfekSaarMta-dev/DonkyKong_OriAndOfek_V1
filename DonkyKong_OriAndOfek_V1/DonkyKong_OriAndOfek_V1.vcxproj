@@ -133,7 +133,6 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="mario.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Barrel.h" />
