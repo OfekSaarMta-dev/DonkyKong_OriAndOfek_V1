@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include "game.h"
 #include <conio.h> // For kbhit and getch functions
 
@@ -67,8 +68,9 @@ void Game::run()
 
         if (_kbhit())
         {
-            char keyPressed = _getch(); // Get pressed key
 
+            char keyPressed = _getch(); // Get pressed key
+            
             if (keyPressed == (char)GameConfig::utilKeys::ESC) // pressing ESC
             {
                 if (!isPaused)
@@ -132,7 +134,7 @@ void Game::run()
 
             set_gameLoop(gameLoop + 1);
             // Activate a new barrel every 16 loops, up to MAX_BARRELS
-            if (gameLoop >= 16) /// change to game config
+            if (gameLoop >= GameConfig::LOOPS_FOR_BARREL) /// change to game config
             {
                 if (activeBarrels < GameConfig::MAX_BARRELS)
                 {
@@ -340,9 +342,14 @@ void Game::gameWinningScreen()
 
 void Game::resetStage(Barrel* pBarrels, Mario* pMario, Map* pMap)
 {
+
     for (int i = 0; i < _activeBarrels; ++i)
     {
-        pBarrels[i].resetBarrel();
+        if(pBarrels[i].isExploded())
+        {
+            pBarrels[i].clearExplosion();
+        }
+        pBarrels[i].resetBarrel(); 
     }
 
     pMario->reset(); // mario died

@@ -14,6 +14,7 @@ class Mario
 private:
 
 	Point _position; // Mario's position
+	Point _newPosition; //Mario's potential new position, unused until being assigned
 	GameConfig::Direction _dir{ 0, 0 }; // starting dir.x and dir.y // standing still
 	Map* _pMap = nullptr; // Pointer to Map object
 	Barrel* _pBarrel = nullptr; // Pointer to Barrel object
@@ -28,7 +29,7 @@ private:
 	
 
 public:
-	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_count_falling(-1), _life(3) {}  // Constructor
+	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_count_falling(-1), _life(3), _died(false), _won(false) {}  // Constructor
 	Mario(const Mario&) = delete;
 	Mario& operator=(const Mario&) = delete;
 

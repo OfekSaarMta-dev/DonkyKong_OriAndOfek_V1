@@ -21,53 +21,53 @@ void Map::print() const {
     cout << _currentMap[GameConfig::GAME_HEIGHT - 1];
 }
 
-char Map::getCharCurrentMap(int x, int y) const     // Get character at specified coordinates
+char Map::getCharCurrentMap(const Point& point) const     // Get character at specified coordinates
 {
-  return _currentMap[y][x];         
+  return _currentMap[point.getY()][point.getX()];         
 }
 
-char Map::getCharOriginalMap(int x, int y) const
+char Map::getCharOriginalMap(const Point& point) const
 {
-    return _originalMap[y][x];
+    return _originalMap[point.getY()][point.getX()];
 }
 
-bool Map::isEdge(const int x, const int y) const
+bool Map::isEdge(const Point& point) const
 {
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::EDGE;
-}
-
-
-bool Map::isFloor(const int x, const int y) const
-{
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::FLOOR ||
-           getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR ||
-           getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::RFLOOR;
-}
-
-bool Map::isLadder(const int x, const int y) const
-{
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LADDER;
-}
-
-bool Map::isRfloor(const int x, const int y) const
-{
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::RFLOOR;
-}
-
-bool Map::isLfloor(const int x, const int y) const
-{
-    return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::LFLOOR;
-}
-
-bool Map::isSpace(const int x, const int y) const
-{
-	return getCharOriginalMap(x, y) == (char)GameConfig::utilKeys::SPACE;
+    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::EDGE;
 }
 
 
-void Map::updateCurrMap(const int x, const int y, const char ch)
+bool Map::isFloor(const Point& point) const
 {
-    _currentMap[y][x] = ch;
+    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::FLOOR ||
+           getCharOriginalMap(point) == (char)GameConfig::utilKeys::LFLOOR ||
+           getCharOriginalMap(point) == (char)GameConfig::utilKeys::RFLOOR;
+}
+
+bool Map::isLadder(const Point& point) const
+{
+    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::LADDER;
+}
+
+bool Map::isRfloor(const Point& point) const
+{
+    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::RFLOOR;
+}
+
+bool Map::isLfloor(const Point& point) const
+{
+    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::LFLOOR;
+}
+
+bool Map::isSpace(const Point& point) const
+{
+	return getCharOriginalMap(point) == (char)GameConfig::utilKeys::SPACE;
+}
+
+
+void Map::updateCurrMap(const Point& point, const char ch)
+{
+    _currentMap[point.getY()][point.getX()] = ch;
 }
 
 void Map::drawLife(const int life) const

@@ -32,8 +32,11 @@ public:
     // Barrels parameters
     static constexpr int MAX_BARRELS = 5;
 	static constexpr int NUM_OF_CHARS_FOR_BARREL_EXPLODE = 8;
-    static constexpr int START_x_BARREL = 49 ;
+    static constexpr int START_x_BARREL = 49;
     static constexpr int START_Y_BARREL = 4;
+    static constexpr int EXPLOSION_DELAY = 25;
+    static constexpr int LOOPS_FOR_BARREL = 16;
+
 
     // Life parameters
     static constexpr int LIFE_X = 17;

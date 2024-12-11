@@ -7,6 +7,7 @@ class Point
 
 public:
 
+    Point() : _x(0), _y(0) {}
     Point(int x, int y) : _x(x), _y(y) {}
     
 
@@ -18,9 +19,5 @@ public:
     void setX(int x) { _x = x; }
     void setY(int y) { _y = y; }
 
-    // Utility functions
-    void setXY(int x, int y) {
-        _x = x;
-        _y = y;
-    }
+
 };

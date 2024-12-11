@@ -2,7 +2,9 @@
 
 #include "gameConfig.h"
 #include "general.h"
+#include "point.h"
 
+class Point;
 
 class Map
 {
@@ -52,15 +54,15 @@ public:
 
 	void reset(); // Reset map to original state
 	void print() const;  // Print current map state
-	char getCharCurrentMap(int x, int y) const;
-	char getCharOriginalMap(int x, int y) const;
-	bool isEdge(const int x, const int y) const;
-	bool isFloor(const int x, const int y) const;
-	bool isLadder(const int x, const int y) const;
-	bool isRfloor(const int x, const int y) const;
-	bool isLfloor(const int x, const int y) const;
-	bool isSpace(const int x, const int y) const;
-	void updateCurrMap(const int x,const int y,const char ch);
+	char getCharCurrentMap(const Point& point) const;
+	char getCharOriginalMap(const Point& point) const;
+	bool isEdge(const Point& point) const;
+	bool isFloor(const Point& point) const;
+	bool isLadder(const Point& point) const;
+	bool isRfloor(const Point& point) const;
+	bool isLfloor(const Point& point) const;
+	bool isSpace(const Point& point) const;
+	void updateCurrMap(const Point& point,const char ch);
 
 	void drawLife(const int life) const;
 	void eraseLife(const int life) const;
