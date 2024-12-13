@@ -22,7 +22,7 @@ void Mario::keyPressed(char key)
     if(!_isFalling)
     {
         if (_pMap->isLadder(Point(currX, currY + 1)))
-        { // Mario on ladder
+        { // Mario on ladder right now
             switch (std::tolower(key))
             { // Options to climb up/down
             case (char)GameConfig::movementKeys::UP:
@@ -34,7 +34,7 @@ void Mario::keyPressed(char key)
                 break;
 
             case (char)GameConfig::movementKeys::STAY:
-                _dir = GameConfig::directions[4];
+                _dir = { 0, 0 };
                 break;
             }
         }
@@ -43,11 +43,11 @@ void Mario::keyPressed(char key)
             switch (std::tolower(key))
             {
                 case (char)GameConfig::movementKeys::LEFT:
-                    _dir = GameConfig::directions[0];
+                    _dir = { -1, 0 };
                     break;
 
                 case (char)GameConfig::movementKeys::RIGHT:
-                    _dir = GameConfig::directions[1];
+                    _dir = { 1, 0 };
                     break;
 
                 case (char)GameConfig::movementKeys::UP: // Jump or climb check
@@ -55,7 +55,7 @@ void Mario::keyPressed(char key)
                     {
                         jump();
                     }
-                    else if (_pMap->isLadder(Point(currX, currY)))
+					else if (_pMap->isLadder(Point(currX, currY))) // Mario on ladder
                     {
                         climb(key);
                     }
@@ -69,7 +69,7 @@ void Mario::keyPressed(char key)
                     break;
 
                 case (char)GameConfig::movementKeys::STAY:
-                     _dir = GameConfig::directions[4];
+                     _dir = {0, 0};
                      break;
 
                 default:
@@ -86,6 +86,7 @@ void Mario::jump()
 {
     // Going up
     _dir.y = -1;
+	_isJumping = true;// Mario is jumping
 }
 
 
@@ -94,18 +95,21 @@ void Mario::jump()
 // Handles climbing up or down ladders based on key input
 void Mario::climb(char key) 
 {
+    Point charBelow = {_position.getX(), _position.getY() + 1};
+    Point twoCharsBelow = { _position.getX(), _position.getY() + 2 };
+
     if (key == (char)GameConfig::movementKeys::UP)
     {
-        _dir.y = -1; // Climb up
+        _dir = { 0, -1 }; // Climb up
     }
     else //(key == (char)GameConfig::movementKeys::DOWN)
     {
-        if (_pMap->isLadder(Point(_position.getX(), _position.getY() + 2)))
+        if (_pMap->isLadder(twoCharsBelow) && _pMap->isFloor(charBelow)) // mario is on floor and trying to climb down
         {
             this->erase();
             _position.setY(getY() + 2); // Move down two steps on ladder
         }
-        _dir.y = 1; // Climb down
+        _dir = { 0, 1 }; // Climb down
     }
 }
 
@@ -115,17 +119,17 @@ void Mario::climb(char key)
 // Moves Mario based on current direction and checks for collisions with edges or floors
 void Mario::move()
 {
-
     int currX = _position.getX();
     int currY = _position.getY();
+    Point charBelow = { currX, currY + 1 };
 
-    
-    if (!_pMap->isFloor(Point(currX, currY + 1)) && _pMap->isSpace(Point(currX, currY + 1))) // if mario isn't on floor, he is above space
+    if (_isJumping) // if mario isn't on floor, he is above space
     {
-        _isFalling = true;
+        if(!_isFalling)
+            _isFalling = true;
         if (_dir.y == -1) // if in the middle of jumping
         {
-            if (_jumpCounter == 1) // if mario reaches peak of jump, fall
+            if (_jumpCounter == 2) // if mario reaches peak of jump, fall
             {
                 _dir.y = 1;
 	    		_countFalling = 0;
@@ -149,13 +153,14 @@ void Mario::move()
 	}
     else if (_pMap->isEdge(_newPosition) || _pMap->isFloor(_newPosition)) // Upon collision with edge/floor
     {
-        if (_pMap->isLadder(Point(currX, currY)) && _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
+        if (_pMap->isLadder(_position) && _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
         {
             _position.setY(currY - 2); // Move Mario above the floor
             _dir = { 0, 0 }; // and stop his movement
             _isFalling = false;
+            _isJumping = false;
         }
-        else if (_pMap->isSpace(Point(currX, currY + 1))) // if mario walk on top of a hole in the floor
+        else if (_pMap->isSpace(charBelow)) // if mario walk on top of a hole in the floor
         {
             _dir = { 0, 1 }; // fall straight down
         }
@@ -170,6 +175,7 @@ void Mario::move()
                 _countFalling = -1; // reset falling counter
                 _dir.y = 0; // stop falling when hitting the floor and keep on moving in X axis
             }
+            _isJumping = false;
             _isFalling = false;
         }
         else // if mario walked into a wall or edge
@@ -208,5 +214,7 @@ void Mario::reset()
     _countFalling = -1; // Reset falling counter
     _dir = { 0, 0 }; // Stop movement
     _died = false;
+    _isJumping = false;
+    _isFalling = false;
     _life--;
 }

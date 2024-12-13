@@ -7,8 +7,8 @@ class Point
 
 public:
 
-    Point() : _x(0), _y(0) {}
-    Point(int x, int y) : _x(x), _y(y) {}
+	Point() : _x(0), _y(0) {} // Default constructor
+	Point(int x, int y) : _x(x), _y(y) {} // Constructor - no overloading
     
 
     // Getters

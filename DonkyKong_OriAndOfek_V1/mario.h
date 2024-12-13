@@ -22,6 +22,7 @@ private:
 	int _jumpCounter = 0; // Counter for jump height
 	int _countFalling = -1;
 	int _life = 3; // Mario's life counter
+	bool _isJumping = false;
 	bool _died = false;
 	bool _isFalling = false;
 
@@ -31,8 +32,8 @@ private:
 
 public:
 	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_countFalling(-1), _life(3), _died(false), _isFalling(false) {}  // Constructor
-	Mario(const Mario&) = delete;
-	Mario& operator=(const Mario&) = delete;
+	Mario(const Mario&) = delete; //delete Copy constructor - we do not want anyone to copy mario in any case!;
+	Mario& operator=(const Mario&) = delete; //delete Copy assignment operator - we do not want anyone to do an assignmen on mario in any case!
 
 
 	void draw() { draw('@'); }  // Draw Mario
@@ -40,10 +41,10 @@ public:
 	void erase(); // Erase Mario
 
 	// Get functions
-	int getX() const {return _position.getX();}
-	int getY() const {return _position.getY();}
-	int getLife() const { return _life; }
-	bool getLifeStatus() const { return _died; }
+	int getX() const { return _position.getX(); } // Get Mario's x position
+	int getY() const { return _position.getY(); } // Get Mario's y position
+	int getLife() const { return _life; } // Get Mario's life counter
+	bool getLifeStatus() const { return _died; } // Get Mario's life status
 	
 	//Set functions
 	void setMap(Map& map) { _pMap = &map; }  // Set Map reference
@@ -54,7 +55,7 @@ public:
 	void jump();  // Perform jump action
 	void climb(char key);  // Perform climb action
 	void move();  // Move Mario
-	bool gotHit()const;
-	bool rescuedPauline() const;
+	bool gotHit()const; // Check if Mario got hit by a barrel or explosion 
+	bool rescuedPauline() const; // Check if Mario tuched Pauline
 	void reset();  // Mario die
 };

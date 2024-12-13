@@ -48,24 +48,24 @@ private:
 	
 public:
 	Map(){}
-	Map(const Map&) = delete;             // Copy constructor
-	Map& operator=(const Map&) = delete; // Copy assignment operator
+	Map(const Map&) = delete;             // delete Copy constructor - we do not want anyone to copy map in any case!
+	Map& operator=(const Map&) = delete; // delete Copy assignment operator - we do not want anyone to do an assignmen on map in any case!
 
 
 	void reset(); // Reset map to original state
 	void print() const;  // Print current map state
-	char getCharCurrentMap(const Point& point) const;
-	char getCharOriginalMap(const Point& point) const;
-	bool isEdge(const Point& point) const;
-	bool isFloor(const Point& point) const;
-	bool isLadder(const Point& point) const;
-	bool isRfloor(const Point& point) const;
-	bool isLfloor(const Point& point) const;
-	bool isSpace(const Point& point) const;
-	void updateCurrMap(const Point& point,const char ch);
+	char getCharCurrentMap(const Point& point) const; // Get character from current map state
+	char getCharOriginalMap(const Point& point) const; // Get character from original map state
+	bool isEdge(const Point& point) const; // Check if point is edge
+	bool isFloor(const Point& point) const; // Check if point is floor
+	bool isLadder(const Point& point) const; // Check if point is ladder
+	bool isRfloor(const Point& point) const; // Check if point is right floor
+	bool isLfloor(const Point& point) const; // Check if point is left floor
+	bool isSpace(const Point& point) const; // Check if point is space
+	void updateCurrMap(const Point& point, const char ch); // Update current map state
 
-	void drawLife(const int life) const;
-	void eraseLife(const int life) const;
+	void drawLife(const int life) const; // Draw life
+	void eraseLife(const int life) const; // Erase life
 
 };
 

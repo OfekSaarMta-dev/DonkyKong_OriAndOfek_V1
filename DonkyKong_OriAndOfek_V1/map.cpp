@@ -23,17 +23,17 @@ void Map::print() const {
 
 char Map::getCharCurrentMap(const Point& point) const     // Get character at specified coordinates
 {
-  return _currentMap[point.getY()][point.getX()];         
+	return _currentMap[point.getY()][point.getX()]; // Get character at specified coordinates
 }
 
-char Map::getCharOriginalMap(const Point& point) const
+char Map::getCharOriginalMap(const Point& point) const  
 {
-    return _originalMap[point.getY()][point.getX()];
+	return _originalMap[point.getY()][point.getX()]; // Get character at specified coordinates
 }
 
 bool Map::isEdge(const Point& point) const
 {
-    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::EDGE;
+	return getCharOriginalMap(point) == (char)GameConfig::utilKeys::EDGE; // Check if point is edge
 }
 
 
@@ -41,36 +41,37 @@ bool Map::isFloor(const Point& point) const
 {
     return getCharOriginalMap(point) == (char)GameConfig::utilKeys::FLOOR ||
            getCharOriginalMap(point) == (char)GameConfig::utilKeys::LFLOOR ||
-           getCharOriginalMap(point) == (char)GameConfig::utilKeys::RFLOOR;
+		getCharOriginalMap(point) == (char)GameConfig::utilKeys::RFLOOR; // Check if point is floor in any kind
 }
 
-bool Map::isLadder(const Point& point) const
+bool Map::isLadder(const Point& point) const // Check if point is ladder
 {
-    return getCharOriginalMap(point) == (char)GameConfig::utilKeys::LADDER;
+	return getCharOriginalMap(point) == (char)GameConfig::utilKeys::LADDER;
 }
 
-bool Map::isRfloor(const Point& point) const
+
+bool Map::isRfloor(const Point& point) const // Check if point is right floor
 {
     return getCharOriginalMap(point) == (char)GameConfig::utilKeys::RFLOOR;
 }
 
-bool Map::isLfloor(const Point& point) const
+bool Map::isLfloor(const Point& point) const // Check if point is left floor
 {
     return getCharOriginalMap(point) == (char)GameConfig::utilKeys::LFLOOR;
 }
 
-bool Map::isSpace(const Point& point) const
+bool Map::isSpace(const Point& point) const // Check if point is space
 {
 	return getCharOriginalMap(point) == (char)GameConfig::utilKeys::SPACE;
 }
 
 
-void Map::updateCurrMap(const Point& point, const char ch)
+void Map::updateCurrMap(const Point& point, const char ch) // Update current map state
 {
     _currentMap[point.getY()][point.getX()] = ch;
 }
 
-void Map::drawLife(const int life) const
+void Map::drawLife(const int life) const // Draw life
 {
     gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);  
     for(int i = 0; i < life; ++i)

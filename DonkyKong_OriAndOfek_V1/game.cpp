@@ -164,6 +164,7 @@ void Game::run()
     }
     else // Mario Won
     {
+        this->resetStage(barrels, &mario, &map);
         gameWinningScreen();
     }
 

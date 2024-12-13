@@ -6,23 +6,20 @@ class GameConfig
 {
 public:
     // Game dimensions
-    static constexpr int GAME_WIDTH = 80;  // x
+	static constexpr int GAME_WIDTH = 80;// x
     static constexpr int GAME_HEIGHT = 25; // y
 
     // Movement delay
-    static constexpr int MOVE_DELAY = 75;
+	static constexpr int MOVE_DELAY = 100; 
 
     // Utility keys enum
-    enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', LFLOOR = '<', RFLOOR = '>', BARREL = 'O', EDGE = 'Q', EXPLOSION = '*', PAULINE = '$', ESC = 27 };
+    enum class utilKeys { SPACE = ' ', LADDER = 'H', FLOOR = '=', LFLOOR = '<', RFLOOR = '>', BARREL = 'O', EDGE = 'Q', EXPLOSION = '*', PAULINE = '$', ESC = 27 }; 
 
     // Movement keys enum
     enum class movementKeys { LEFT = 'a', RIGHT = 'd', UP = 'w', DOWN = 'x', STAY = 's' };
 
     // Direction struct for movement
     struct Direction { int x, y; };
-
-    // Array of directions corresponding to movement keys
-    static constexpr Direction directions[] = { {-1, 0}, {1, 0}, {0, -1}, {0, 1}, {0, 0} };
 
     // Starting position for Mario
     static constexpr int START_X_MARIO = 78;
@@ -36,7 +33,6 @@ public:
     static constexpr int START_Y_BARREL = 4;
     static constexpr int EXPLOSION_DELAY = 25;
     static constexpr int LOOPS_FOR_BARREL = 16;
-
 
     // Life parameters
     static constexpr int LIFE_X = 17;
