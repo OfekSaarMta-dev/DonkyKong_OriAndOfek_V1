@@ -123,7 +123,7 @@ void Mario::move()
     int currY = _position.getY();
     Point charBelow = { currX, currY + 1 };
 
-    if (_isJumping) // if mario isn't on floor, he is above space
+    if (_isJumping || _pMap->isSpace(charBelow)) // if mario isn't on floor, he is above space
     {
         if(!_isFalling)
             _isFalling = true;
