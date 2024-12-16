@@ -1,13 +1,14 @@
 #pragma once
 #include "general.h"
-#include "map.h"
 #include "point.h"
 #include "barrel.h"
+#include "map.h"
 
 using namespace std;
 
-class Map;
-class Barrel;
+class Map; // Forward declaration
+class Barrel; // Forward declaration
+
 class Mario
 
 {
@@ -20,7 +21,7 @@ private:
 	Barrel* _pBarrel = nullptr; // Pointer to Barrel object
 
 	int _jumpCounter = 0; // Counter for jump height
-	int _countFalling = -1;
+	int _countFalling = -1; 
 	int _life = 3; // Mario's life counter
 	bool _isJumping = false;
 	bool _died = false;
@@ -31,7 +32,7 @@ private:
 	
 
 public:
-	Mario() : _position(GameConfig::START_X_MARIO,GameConfig::START_Y_MARIO), _jumpCounter(0),_countFalling(-1), _life(3), _died(false), _isFalling(false) {}  // Constructor
+	Mario() : _position(GameConfig::START_X_MARIO, GameConfig::START_Y_MARIO), _jumpCounter(0), _countFalling(-1), _life(3), _isJumping(false), _died(false), _isFalling(false) {}  // Constructor
 	Mario(const Mario&) = delete; //delete Copy constructor - we do not want anyone to copy mario in any case!;
 	Mario& operator=(const Mario&) = delete; //delete Copy assignment operator - we do not want anyone to do an assignmen on mario in any case!
 
@@ -57,5 +58,5 @@ public:
 	void move();  // Move Mario
 	bool gotHit()const; // Check if Mario got hit by a barrel or explosion 
 	bool rescuedPauline() const; // Check if Mario tuched Pauline
-	void reset();  // Mario die
+	void reset();  // resets Mario in case he dies
 };

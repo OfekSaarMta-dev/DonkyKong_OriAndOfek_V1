@@ -12,14 +12,55 @@ void Map::reset()
 	
 }
 
-// Prints the current state of the map to the console
-void Map::print() const {
-    for (int i = 0; i < GameConfig::GAME_HEIGHT - 1; i++) 
+void Map::print() const
+{
+    for (int i = 0; i < GameConfig::GAME_HEIGHT-1; i++)
     {
-        cout << _currentMap[i] << '\n';
+        for (int j = 0; j < GameConfig::GAME_WIDTH; j++)
+        {
+            char element = _currentMap[i][j];
+
+            if (_useColors)
+            {
+                // Set colors based on element type
+                switch (element)
+                {
+                case (char)GameConfig::utilKeys::FLOOR:
+                    setConsoleColor(12); // Red
+                    break;
+
+                case (char)GameConfig::utilKeys::LFLOOR:
+                case (char)GameConfig::utilKeys::RFLOOR:
+					setConsoleColor(3); //light blue
+					break;
+
+				case (char)GameConfig::utilKeys::EDGE:
+					setConsoleColor(1); // Blue
+					break;
+
+                case (char)GameConfig::utilKeys::PAULINE:
+                    setConsoleColor(14); // gold
+                    break;
+
+                default:
+                    setConsoleColor(7); // Default console color
+                    break;
+                }
+            }
+            // Print the character
+            cout << element;
+        }
+        cout << '\n';
     }
-    cout << _currentMap[GameConfig::GAME_HEIGHT - 1];
+
+	cout << _currentMap[GameConfig::GAME_HEIGHT - 1]; // Print the last line
+
+    if (_useColors)
+    {
+		setConsoleColor(7); // Reset to default color for printing mario and barrel
+    }
 }
+
 
 char Map::getCharCurrentMap(const Point& point) const     // Get character at specified coordinates
 {
@@ -68,22 +109,22 @@ bool Map::isSpace(const Point& point) const // Check if point is space
 
 void Map::updateCurrMap(const Point& point, const char ch) // Update current map state
 {
-    _currentMap[point.getY()][point.getX()] = ch;
+    _currentMap[point.getY()][point.getX()] = ch;  
 }
 
 void Map::drawLife(const int life) const // Draw life
 {
-    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);  
+    gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y); // go coord of life and draw '# ' loop of number ofcurrent lifes  
     for(int i = 0; i < life; ++i)
     {
         cout << "# ";
     }
 }
 
-void Map::eraseLife(const int prevLife) const
+void Map::eraseLife(const int prevLife) const // Erase
 {
     gotoxy(GameConfig::LIFE_X, GameConfig::LIFE_y);
-    for (int i = 0; i < prevLife; ++i)
+	for (int i = 0; i < prevLife; ++i) // erase the previous life (draw '  ' loop of number of previous lifes)
     {
         cout << "  ";
     }

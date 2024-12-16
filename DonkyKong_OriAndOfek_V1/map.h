@@ -10,6 +10,8 @@ class Map
 {
 private:
 
+	bool _useColors = false; // Default to no colors
+
 	// Original map layout
 	
 	const char* _originalMap[GameConfig::GAME_HEIGHT] = {
@@ -21,22 +23,22 @@ private:
 		  "Q                                                  &         H                 Q", // 4
 		  "Q                                                  =         H                 Q", // 5
 		  "Q                                              <<<<=============               Q", // 6
-		  "Q                                                      H  H                    Q", // 7
-		  "Q                                                      H  H                    Q", // 8
+		  "Q                                                         H                    Q", // 7
+		  "Q                                                         H                    Q", // 8
 		  "Q           ===============================<<<<<<===============               Q", // 9
-		  "Q            H                                         H                       Q", // 10
-		  "Q            H                                         H                       Q", // 11
-		  "Q            H                                         H                       Q", // 12
-		  "Q    ====>>>============                       ==== ===========<<<=========    Q", // 13
-		  "Q                       >>>=========                   H                       Q", // 14
-		  "Q                             =====>>>>===========     H                       Q", // 15
-		  "Q                                                      H                       Q", // 16
-		  "Q                                                      H                       Q", // 17
-		  "Q                                                      H                       Q", // 18
+		  "Q            H                                                                 Q", // 10
+		  "Q            H                                                                 Q", // 11
+		  "Q            H                                                                 Q", // 12
+		  "Q    ====>>>============                       ==== =======================    Q", // 13
+		  "Q                       >>>=========                    H                      Q", // 14
+		  "Q                             =====>>>>===========      H                      Q", // 15
+		  "Q                                                       H                      Q", // 16
+		  "Q                                                       H                      Q", // 17
+		  "Q                                                       H                      Q", // 18
 		  "Q               ================================== ==========                  Q", // 19
-		  "Q                         H                            H                       Q", // 20
-		  "Q                         H                            H                       Q", // 21
-		  "Q                         H                            H                       Q", // 22
+		  "Q                         H                                                    Q", // 20
+		  "Q                         H                                                    Q", // 21
+		  "Q                         H                                                    Q", // 22
 		  "Q=================================>>>>=========================================Q", // 23
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"  // 24
 	};
@@ -47,11 +49,11 @@ private:
 	char _currentMap[GameConfig::GAME_HEIGHT][GameConfig::GAME_WIDTH + 1]; // +1 for null terminator
 	
 public:
-	Map(){}
+	Map() : _useColors(false) {} // Default no colors
 	Map(const Map&) = delete;             // delete Copy constructor - we do not want anyone to copy map in any case!
 	Map& operator=(const Map&) = delete; // delete Copy assignment operator - we do not want anyone to do an assignmen on map in any case!
 
-
+	void enableColors(bool useColors) { _useColors = useColors; }
 	void reset(); // Reset map to original state
 	void print() const;  // Print current map state
 	char getCharCurrentMap(const Point& point) const; // Get character from current map state
@@ -66,6 +68,9 @@ public:
 
 	void drawLife(const int life) const; // Draw life
 	void eraseLife(const int life) const; // Erase life
+
+	bool getUseColors() const { return _useColors; } // Get Mario's life counter
+
 
 };
 

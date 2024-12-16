@@ -13,13 +13,14 @@ void Game::menu()
 
     while (true)
     {
-        MenuScreen();
+		MenuScreen(); // Display the menu screen
         char choice = _getch();
 
         switch (choice)
         {
         case '1':
-            system("cls");
+            //system("cls");
+            clrscr();
             this->run(); // Start a new game session
             break;
 
@@ -41,9 +42,17 @@ void Game::menu()
 
 void Game::run()
 {
+    // Ask user for color choice before starting the game
+    char colorChoice;
+    cout << "Do you want to play with colors? (enter - y/Y for yes/and any other key for no):" << endl;
+	cin >> colorChoice; // Get user input
+    clrscr();
+    bool useColors = (colorChoice == 'y' || colorChoice == 'Y'); // true for 'y' or 'Y', false otherwise
+
     Map map;
     map.reset();   // Reset map to initial state
-    map.print();   // Print map to console
+    map.enableColors(useColors); // Enable or disable colors based on user input
+	map.print();   // Print map to console with or without colors depending on user input
 
     Mario mario;
     Barrel barrels[GameConfig::MAX_BARRELS];
@@ -58,22 +67,19 @@ void Game::run()
         barrels[i].setMap(map);   // Set the map for each barrel
     }
 
-    bool isPaused = false;
+	bool isPaused = false; // Flag for game pause
 
-    int activeBarrels = 0;
-    int gameLoop = 0;
+	int activeBarrels = 0; // Number of active barrels
+	int gameLoop = 0; // Game loop counter
 
-
-    while (mario.getLife() > 0 && !mario.rescuedPauline())
+	while (mario.getLife() > 0 && !mario.rescuedPauline()) // if mario life is bigger than 0 and mario did not touch Pauline enter
     {
-        activeBarrels = this->get_gameActiveBarrels();
+		activeBarrels = this->get_gameActiveBarrels(); // Get active barrels
         gameLoop = this->get_gameLoop();
 
         if (_kbhit())
         {
-
             char keyPressed = _getch(); // Get pressed key
-
             
             if (keyPressed == (char)GameConfig::utilKeys::ESC) // pressing ESC
             {
@@ -87,7 +93,7 @@ void Game::run()
                 else
                 {
                     isPaused = false;
-                    system("CLS"); // Clear the screen when resuming
+                    clrscr(); // Clear the screen when resuming
                     map.print();   // Redraw the map
                     mario.draw();  // Redraw Mario
                     for (int i = 0; i < activeBarrels; i++)
@@ -100,49 +106,47 @@ void Game::run()
 
             if (!isPaused)// running 
             {
-                mario.keyPressed(keyPressed);
+				mario.keyPressed(keyPressed); // Handle key press
             }
         }
 
         if (!isPaused) // the game is running
         {
-
-            // Draw active barrels
-            for (int i = 0; i < activeBarrels; i++)
+            for (int i = 0; i < activeBarrels; i++) // Draw active barrels
             {
                 barrels[i].draw();
             }
             mario.draw();
 
-            Sleep(GameConfig::MOVE_DELAY);
+			Sleep(GameConfig::MOVE_DELAY); // Delay for smooth movement
 
-            for (int i = 0; i < activeBarrels; i++)
+			for (int i = 0; i < activeBarrels; i++) // Erase or clear exploded barrels
             {
-                if (barrels[i].isExploded())
+				if (barrels[i].isExploded()) // If barrel exploded
                 {
-                    barrels[i].clearExplosion();
+					barrels[i].clearExplosion(); // Clear explosion
                 }
                 else
                 {
-                    barrels[i].erase();
+					barrels[i].erase(); // Erase barrel (for the movement effect)
                 }
             }
-            mario.erase();
+			mario.erase(); // Erase Mario (for the movement effect)
 
-            for (int i = 0; i < activeBarrels; i++)
+			for (int i = 0; i < activeBarrels; i++) // Move active barrels
             {
-                barrels[i].move();
+				barrels[i].move(); // Move barrels (changing the point of the barrel)
             }
 
-            mario.move();
+			mario.move(); // Move Mario
 
-            set_gameLoop(gameLoop + 1);
-            // Activate a new barrel every 16 loops, up to MAX_BARRELS
-            if (gameLoop >= GameConfig::LOOPS_FOR_BARREL) /// change to game config
+			set_gameLoop(gameLoop + 1); // Increment the game loop counter
+
+			if (gameLoop >= GameConfig::LOOPS_FOR_BARREL) // Add a new barrel
             {
-                if (activeBarrels < GameConfig::MAX_BARRELS)
+				if (activeBarrels < GameConfig::MAX_BARRELS) // If there are less than the maximum number of barrels
                 {
-                    this->set_gameActiveBarrels(activeBarrels + 1);
+					this->set_gameActiveBarrels(activeBarrels + 1); // Increment the active barrels counter
                 }
                 set_gameLoop(0); // Reset the counter
             }
@@ -154,25 +158,25 @@ void Game::run()
         }
         else
         {
-            Sleep(GameConfig::MOVE_DELAY);
+            Sleep(GameConfig::MOVE_DELAY); // delay for pause screen
         }
     }
 
     if (mario.getLife() == 0) // Game Over
     {
-        gameOverScreen();
+		gameOverScreen(); // Display the game over screen
     }
     else // Mario Won
     {
-        this->resetStage(barrels, &mario, &map);
-        gameWinningScreen();
+		this->resetStage(barrels, &mario, &map); // Reset the stage (reset Mario, barrels and map (for lifes))
+		gameWinningScreen(); // Display the winning screen
     }
 
 }
 
 void Game::MenuScreen() 
 {
-    system("cls"); // Clear the screen
+    clrscr(); // Clear the screen when resuming
     // Menu layout screen
     const char* menuMap[GameConfig::GAME_HEIGHT] = {
      "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
@@ -213,7 +217,7 @@ void Game::MenuScreen()
 
 void Game::InstructionsScreen()
 {
-    system("cls");
+    clrscr(); // Clear the screen when resuming
 
     // instructions layout screen
     const char* instructionScreen[GameConfig::GAME_HEIGHT] = {
@@ -229,11 +233,11 @@ void Game::InstructionsScreen()
         "Q                               s/S - Stay                                     Q", // 9
         "Q                               ESC - Pause Game                               Q", // 10
         "Q                                                                              Q", // 11
-        "Q                                                                              Q", // 12
-        "Q                          Press any key to return to menu...                  Q", // 13
+        "Q  !!!Be aware of barrels and their explosion you will die if you get close!!! Q", // 12
+        "Q                                                                              Q", // 13
         "Q                                                                              Q", // 14
         "Q                                                                              Q", // 15
-        "Q                                                                              Q", // 16
+        "Q                       Press any key to return to menu...                     Q", // 16
         "Q                                                                              Q", // 17
         "Q                                                                              Q", // 18
         "Q                                                                              Q", // 19
@@ -260,7 +264,7 @@ void Game::InstructionsScreen()
 
 void Game::gameOverScreen() 
 {
-    system("cls"); // Clear the screen
+    clrscr(); // Clear the screen when resuming
     // Game Over screen layout
     const char* gameOverMap[GameConfig::GAME_HEIGHT] = {
         "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
@@ -304,7 +308,7 @@ void Game::gameOverScreen()
 
 void Game::gameWinningScreen()
 {
-    system("cls"); // Clear the screen
+    clrscr(); // Clear the screen when resuming
     // Game Winning screen layout
     const char* winningScreenMap[GameConfig::GAME_HEIGHT] = {
         "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0

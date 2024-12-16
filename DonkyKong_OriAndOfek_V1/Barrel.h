@@ -4,6 +4,7 @@
 #include "gameConfig.h"
 #include "map.h"
 
+class Map; // Forward declaration
 
 class Barrel 
 {
@@ -20,7 +21,7 @@ public:
 
 	Barrel() : _position(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL), _dir({ 0, 1 }), _count_falling(0), _exploded(false) {} // Constructor
 
-	void draw() const {draw('O');} // Draw Barrel  
+	void draw() const {draw((char)GameConfig::utilKeys::BARREL);} // Draw Barrel  
 
 	void erase() const; // Erase Barrel
 	void move();  // Move Barrel

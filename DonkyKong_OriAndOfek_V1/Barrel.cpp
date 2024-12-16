@@ -14,7 +14,7 @@ void Barrel::draw(char ch) const// Draw character at Barrel's position
 
 void Barrel::erase() const
 {
-    char originalChar = _pMap->getCharOriginalMap(_position);
+	char originalChar = _pMap->getCharOriginalMap(_position); // Get original char
     gotoxy(_position.getX(), _position.getY());
     cout << originalChar; // print original char
 
@@ -67,42 +67,41 @@ void Barrel::explosion()
 {
     _exploded = true;
 
-    Point newPosition;
+	Point newPosition; // Barrel's new position
 
     int barrelX = _position.getX();
     int barrelY = _position.getY();
     int newX;
     int newY;
 
-    //*****
+    //*****  
     //***** 
-    //**O** 
+    //**O**
 
-    for (int i = 0; i < 5; i++) //columns
-    {
-        for (int j = 2; j >= 0; j--) //rows
-        {
-			newX = barrelX - 2 + i;
-			newY = barrelY - j;
-			newPosition = Point(newX, newY); // Calculate new position
+	for (int i = 0; i < 5; i++) //columns
+	{
+		for (int j = 2; j >= 0; j--) //rows
+		{
+            
+			newX = barrelX - 2 + i; // Calculate new x position starting from -2 from Barrel's x position
+			newY = barrelY - j; // Calculate new y position starting from  
+			newPosition = { newX, newY }; // Calculate new position starting from above Barrel's position
 
-			_pMap->updateCurrMap(newPosition, (char)GameConfig::utilKeys::EXPLOSION);
+			_pMap->updateCurrMap(newPosition, (char)GameConfig::utilKeys::EXPLOSION); // put explosion inside current map
 			gotoxy(newX, newY);
 			cout << (char)GameConfig::utilKeys::EXPLOSION; // print explosion on screen
-        }
-    }
-
-	
+		}
+	}
 }
 
 void Barrel::clearExplosion()
 {
-    Sleep(GameConfig::EXPLOSION_DELAY);
+    Sleep(GameConfig::EXPLOSION_DELAY); // to show the explostion for the user; 
 
     Point newPosition;
 
-	int barrelX = _position.getX();
-	int barrelY = _position.getY();
+	int barrelX = _position.getX(); // Barrel's x position
+	int barrelY = _position.getY(); // Barrel's y position
 	int newX;
 	int newY;
     char originalChar;
@@ -113,7 +112,7 @@ void Barrel::clearExplosion()
 		{
 			newX = barrelX - 2 + i; // Calculate new x position
 			newY = barrelY - j; // Calculate new y position
-			newPosition = Point(newX, newY); // Calculate new position
+            newPosition = { newX, newY }; // Calculate new position
 			originalChar = _pMap->getCharOriginalMap(newPosition); // Get original char
 
 			_pMap->updateCurrMap(newPosition, originalChar); // erasing from current map (putting original char)
@@ -122,13 +121,13 @@ void Barrel::clearExplosion()
 		}
 	}
 
-    this->resetBarrel();
+	this->resetBarrel(); // Reset Barrel to the starting position
 }
 
 void Barrel::resetBarrel()
 {
 	this->erase();
-	_position = Point(GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL); // Reset Barrel's position
+    _position = { GameConfig::START_x_BARREL, GameConfig::START_Y_BARREL }; // Reset Barrel's position
 	_count_falling = 0; // Reset falling counter
 	_exploded = false; // Reset explosion flag
 }

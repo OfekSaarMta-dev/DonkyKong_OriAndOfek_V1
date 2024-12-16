@@ -6,9 +6,8 @@ void Mario::draw(char ch) const // Draw character at Mario's position
     cout << ch;
 }
 
-void Mario::erase()
+void Mario::erase() // erases Mario
 {
-
     char originalChar = _pMap->getCharOriginalMap(_position);
     gotoxy(_position.getX(), _position.getY());
     cout << originalChar; // Restore original character instead of erasing it with space.
@@ -33,7 +32,7 @@ void Mario::keyPressed(char key)
                 climb(key);
                 break;
 
-            case (char)GameConfig::movementKeys::STAY:
+            case (char)GameConfig::movementKeys::STAY: // stay on ladder
                 _dir = { 0, 0 };
                 break;
             }
@@ -61,14 +60,14 @@ void Mario::keyPressed(char key)
                     }
                     break;
 
-                case (char)GameConfig::movementKeys::DOWN:
+                case (char)GameConfig::movementKeys::DOWN: // Mario stand above a ladder and wants to climb down
                     if (_pMap->isLadder(Point(currX, currY + 2)))
                     {
                         climb(key);
                     }
                     break;
 
-                case (char)GameConfig::movementKeys::STAY:
+                case (char)GameConfig::movementKeys::STAY: // stay on floor
                      _dir = {0, 0};
                      break;
 
@@ -81,12 +80,12 @@ void Mario::keyPressed(char key)
 }
 
 
-       
+// performs jump action
 void Mario::jump()
 {
     // Going up
     _dir.y = -1;
-	_isJumping = true;// Mario is jumping
+	_isJumping = true;// set Mario is jumping
 }
 
 
@@ -95,8 +94,8 @@ void Mario::jump()
 // Handles climbing up or down ladders based on key input
 void Mario::climb(char key) 
 {
-    Point charBelow = {_position.getX(), _position.getY() + 1};
-    Point twoCharsBelow = { _position.getX(), _position.getY() + 2 };
+    Point charBelow = {_position.getX(), _position.getY() + 1}; // makes a Point from char below Mario
+    Point twoCharsBelow = { _position.getX(), _position.getY() + 2 }; // makes a Point from 2 chars below Mario
 
     if (key == (char)GameConfig::movementKeys::UP)
     {
@@ -109,7 +108,7 @@ void Mario::climb(char key)
             this->erase();
             _position.setY(getY() + 2); // Move down two steps on ladder
         }
-        _dir = { 0, 1 }; // Climb down
+        _dir = { 0, 1 }; // Climb down (moves down)
     }
 }
 
@@ -121,13 +120,13 @@ void Mario::move()
 {
     int currX = _position.getX();
     int currY = _position.getY();
-    Point charBelow = { currX, currY + 1 };
+    Point charBelow = { currX, currY + 1 }; // Point to 1 char below Mario
 
     if (_isJumping || _pMap->isSpace(charBelow)) // if mario isn't on floor, he is above space
     {
-        if(!_isFalling)
+        if(!_isFalling) // if Mario wasn't falling, set Mario correct member to true (falling)
             _isFalling = true;
-        if (_dir.y == -1) // if in the middle of jumping
+        if (_dir.y == -1) // if in the "going up" part of jumping
         {
             if (_jumpCounter == 2) // if mario reaches peak of jump, fall
             {
@@ -145,9 +144,9 @@ void Mario::move()
         }
     }
 
-    _newPosition = Point(currX + _dir.x, currY + _dir.y);
+    _newPosition = Point(currX + _dir.x, currY + _dir.y); // create Point for Mario's new position
 
-	if (this->gotHit()) // mario got hit by a barrel or explosion
+	if (this->gotHit()) // mario got hit by a barrel or explosion and died
 	{
 		_died = true;
 	}
@@ -156,9 +155,9 @@ void Mario::move()
         if (_pMap->isLadder(_position) && _dir.y == -1) // when Mario climbing up a ladder and hitting upper floor
         {
             _position.setY(currY - 2); // Move Mario above the floor
-            _dir = { 0, 0 }; // and stop his movement
-            _isFalling = false;
-            _isJumping = false;
+            _dir = { 0, 0 }; // stop his movement
+            _isFalling = false; // set falling to false
+            _isJumping = false; // set jumping to false
         }
         else if (_pMap->isSpace(charBelow)) // if mario walk on top of a hole in the floor
         {
@@ -168,7 +167,7 @@ void Mario::move()
         {
             if (_countFalling >= GameConfig::NUM_OF_CHARS_FOR_MARIO_DIE) // if mario fell too far
             {
-				_died = true; // Trigger Mario's death
+				_died = true; // Mario died
             }
             else // if mario hit the floor but fell less than 5 chars
             {
@@ -183,31 +182,34 @@ void Mario::move()
             _dir = { 0, 0 }; // Stop movement
         }
     }
-    else // Update position if no collision occurs
+    else // Update position if no collision occurs (common case)
     {
         _position = _newPosition;
     }
 }
 
+
+// Check if Mario got hit by a barrel or explosion
 bool Mario::gotHit() const
 {
-    char currentChar = _pMap->getCharCurrentMap(_position);
-    char nextChar = _pMap->getCharCurrentMap(_newPosition);
+    char currentChar = _pMap->getCharCurrentMap(_position); // gets currentMap char at Mario's position
+    char nextChar = _pMap->getCharCurrentMap(_newPosition); // gets currentMap char at Mario's new position
 	if (currentChar == (char)GameConfig::utilKeys::EXPLOSION || currentChar == (char)GameConfig::utilKeys::BARREL ||
-        nextChar == (char)GameConfig::utilKeys::EXPLOSION || nextChar == (char)GameConfig::utilKeys::BARREL)
+        nextChar == (char)GameConfig::utilKeys::EXPLOSION || nextChar == (char)GameConfig::utilKeys::BARREL) // if Mario's current or next position is barrel or explosion
 	{
 		return true;
 	}
 	return false;
 }
 
+// Check if Mario tuched Pauline
 bool Mario::rescuedPauline() const
 {
-    return _pMap->getCharOriginalMap(_position) == (char)GameConfig::utilKeys::PAULINE;
+    return _pMap->getCharOriginalMap(_position) == (char)GameConfig::utilKeys::PAULINE; // if Mario's current position is Pauline
 }
 
 
-
+// resets Mario in case he dies
 void Mario::reset()
 {
     _position = Point(GameConfig::START_X_MARIO, GameConfig::START_Y_MARIO); // Reset Mario's position
@@ -216,5 +218,5 @@ void Mario::reset()
     _died = false;
     _isJumping = false;
     _isFalling = false;
-    _life--;
+    _life--; // decreace life by one
 }

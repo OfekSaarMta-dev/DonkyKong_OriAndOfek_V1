@@ -7,5 +7,7 @@
 void gotoxy(int x, int y); // Go to x,y position
 void clrscr(); // Clear screen
 void ShowConsoleCursor(bool showFlag); // Show/hide console cursor 
+void setConsoleColor(int color);
+
 
 

@@ -5,7 +5,8 @@ using namespace std;
 
 
 // Note: The functions here are used for basic console manipulation,
-// such as moving the cursor and clearing the screen.
+// such as moving the cursor and clearing the screen and adding colors.
+// gotoxy, clrscr, ShowConsoleCursor and setConsoleColor are from Keren's code "snakes" 
 
 // Moves the console cursor to the specified (x, y) position
 void gotoxy(int x, int y) 
@@ -33,4 +34,10 @@ void ShowConsoleCursor(bool showFlag)
     GetConsoleCursorInfo(out, &cursorInfo);
     cursorInfo.bVisible = showFlag; // Set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
+}
+
+void setConsoleColor(int color)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
 }
