@@ -26,24 +26,24 @@ void Map::print() const
                 switch (element)
                 {
                 case (char)GameConfig::utilKeys::FLOOR:
-                    setConsoleColor(12); // Red
+                    setConsoleColor((char)GameConfig::colors::RED); // Red
                     break;
 
                 case (char)GameConfig::utilKeys::LFLOOR:
                 case (char)GameConfig::utilKeys::RFLOOR:
-					setConsoleColor(3); //light blue
+					setConsoleColor((char)GameConfig::colors::LIGHTBLUE); //light blue
 					break;
 
 				case (char)GameConfig::utilKeys::EDGE:
-					setConsoleColor(1); // Blue
+					setConsoleColor((char)GameConfig::colors::BLUE); // Blue
 					break;
 
                 case (char)GameConfig::utilKeys::PAULINE:
-                    setConsoleColor(14); // gold
+                    setConsoleColor((char)GameConfig::colors::GOLD); // gold
                     break;
 
                 default:
-                    setConsoleColor(7); // Default console color
+                    setConsoleColor((char)GameConfig::colors::WHITE); // Default console color
                     break;
                 }
             }
@@ -57,7 +57,7 @@ void Map::print() const
 
     if (_useColors)
     {
-		setConsoleColor(7); // Reset to default color for printing mario and barrel
+		setConsoleColor((char)GameConfig::colors::WHITE); // Reset to default color for printing mario and barrel
     }
 }
 

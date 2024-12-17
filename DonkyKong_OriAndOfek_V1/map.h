@@ -17,12 +17,12 @@ private:
 	const char* _originalMap[GameConfig::GAME_HEIGHT] = {
 		// 01234567890123456789012345678901234567890123456789012345678901234567890123456789
 		  "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ", // 0
-		  "Q                                                                              Q", // 1
-		  "Q    LIVES LEFT: # # #                                       $                 Q", // 2
-		  "Q                                                            =                 Q", // 3
-		  "Q                                                  &         H                 Q", // 4
-		  "Q                                                  =         H                 Q", // 5
-		  "Q                                              <<<<=============               Q", // 6
+		  "Q                                                            $                 Q", // 1
+		  "Q    LIVES LEFT: # # #                                       =                 Q", // 2
+		  "Q                                                  &         H                 Q", // 3
+		  "Q                                                  =         H                 Q", // 4
+		  "Q                                              <<<<=============               Q", // 5
+		  "Q                                                         H                    Q", // 6
 		  "Q                                                         H                    Q", // 7
 		  "Q                                                         H                    Q", // 8
 		  "Q           ===============================<<<<<<===============               Q", // 9
